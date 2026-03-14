@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniversalQ | Contacto</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js -->
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Estilos globales del sitio -->
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../slider.css" />
+  <link rel="stylesheet" href="../style header.css" />
+  <link rel="stylesheet" href="../style footer.css" />
+  <link rel="stylesheet" href="../style slide.css" />
+  <link rel="stylesheet" href="../style quienes somos.css" />
+  <link rel="stylesheet" href="../productos.css" />
+  <!-- Estilos propios de contacto -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="preload bg-slate-950 text-slate-200 selection:bg-blue-500 selection:text-white custom-scrollbar">
+  <!-- Header -->
+  <nav 
+    x-data="{ isScrolled: false, isMenuOpen: false, init(){ this.isScrolled = window.pageYOffset>50; window.addEventListener('scroll', () => this.isScrolled = window.pageYOffset>50); } }"
+    x-init="init()"
+    :class="isScrolled ? 'bg-slate-900/90 backdrop-blur-md py-4 border-b border-slate-700 shadow-xl' : 'bg-transparent py-8'"
+    class="fixed w-full z-50 transition-all duration-500 nav-sticky reveal reveal-down"
+  >
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <a href="../index.html#inicio" class="flex items-center gap-3 group cursor-pointer">
+        <div class="relative flex items-center justify-center w-10 h-10 group-hover:scale-110 transition-transform duration-300 text-blue-400">
+          <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
+            <circle cx="45" cy="45" r="35" stroke-width="8" />
+            <line x1="70" y1="70" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
+            <circle cx="45" cy="45" r="20" class="fill-blue-500/20 stroke-blue-500" stroke-width="1.5" />
+            <path d="M30 45 Q 45 35 60 45" class="stroke-blue-400" stroke-width="1.5" />
+            <path d="M30 50 Q 45 60 60 50" class="stroke-blue-400" stroke-width="1.5" />
+          </svg>
+        </div>
+        <span class="text-2xl font-black tracking-tighter uppercase italic transition-colors duration-300 text-white">
+          Universal<span class="not-italic transition-colors duration-300 text-blue-400">Q</span>
+        </span>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-10 font-bold text-[11px] header-nav">
+        <a href="../index.html#inicio" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Inicio</a>
+        <a href="../Quines Somos/index.html" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Nosotros</a>
+        <a href="../index.html#productos" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Productos</a>
+        <a href="#contacto" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Contacto</a>
+        <a href="#contactForm" class="bg-blue-700 text-white px-7 py-3 rounded-full hover:bg-blue-800 transition-all uppercase tracking-widest font-black shadow-lg header-cta">
+          Contacto Corporativo
+        </a>
+      </div>
+
+      <button class="lg:hidden transition-colors duration-300 text-white" @click="isMenuOpen = !isMenuOpen">
+        <i x-show="!isMenuOpen" data-lucide="menu"></i>
+        <i x-show="isMenuOpen" data-lucide="x"></i>
+      </button>
+    </div>
+
+    <!-- Menú Móvil -->
+    <div x-show="isMenuOpen" x-transition class="lg:hidden bg-slate-900 border-b border-slate-700 p-6 space-y-4">
+      <a href="../index.html#inicio" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Inicio</a>
+      <a href="../Quines Somos/index.html" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Nosotros</a>
+      <a href="../index.html#productos" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Productos</a>
+      <a href="#contacto" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Contacto</a>
+    </div>
+  </nav>
+
+  <main class="pt-28">
+    <!-- Hero/Encabezado -->
+    <section class="relative overflow-hidden py-24 bg-slate-900 section-immersive">
+      <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(50rem_25rem_at_10%_-10%,rgba(59,130,246,0.18),transparent_60%),radial-gradient(40rem_22rem_at_110%_120%,rgba(56,189,248,0.14),transparent_60%)]"></div>
+      <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+        <div class="reveal reveal-up">
+          <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] font-black text-blue-300 mb-3">Contacto</span>
+          <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">Conversemos sobre tu operación <span class="text-blue-400 not-italic">Global</span></h1>
+          <p class="mt-5 text-slate-300 text-lg leading-relaxed max-w-xl">Bríndanos los detalles de tu requerimiento y te contactaremos con un ejecutivo especializado para avanzar con agilidad y transparencia.</p>
+          <div class="mt-8 flex flex-wrap gap-3 text-slate-400 text-sm">
+            <div class="inline-flex items-center gap-2"><i data-lucide="clock-8" class="w-4 h-4 text-blue-300"></i> 24/7</div>
+            <div class="inline-flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4 text-blue-300"></i> Compliance</div>
+            <div class="inline-flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4 text-blue-300"></i> Cobertura Global</div>
+          </div>
+        </div>
+        <div class="reveal reveal-right">
+          <div class="rounded-2xl border border-slate-700/50 bg-gradient-to-br from-slate-900 to-slate-800 p-6 shadow-2xl tilt">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="stat">
+                <span class="stat-k">24/7</span>
+                <span class="stat-l">Disponibilidad</span>
+              </div>
+              <div class="stat">
+                <span class="stat-k">5</span>
+                <span class="stat-l">Continentes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto" class="py-20 bg-slate-950 relative section-immersive">
+      <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10">
+        <!-- Formulario -->
+        <div class="reveal reveal-up">
+          <form id="contactForm" action="mailto:ventas@universalq.com" method="post" enctype="text/plain" class="contact-card tilt glow-card" x-data="contactForm()" @submit.prevent="submit">
+            <div class="grid gap-4 md:grid-cols-2">
+              <div>
+                <label class="contact-label">Nombre</label>
+                <input type="text" name="Nombre" x-model="form.nombre" required class="contact-input" placeholder="Tu nombre" />
+              </div>
+              <div>
+                <label class="contact-label">Empresa</label>
+                <input type="text" name="Empresa" x-model="form.empresa" class="contact-input" placeholder="Nombre de la empresa" />
+              </div>
+            </div>
+            <div class="grid gap-4 md:grid-cols-2 mt-2">
+              <div>
+                <label class="contact-label">Email</label>
+                <input type="email" name="Email" x-model="form.email" required class="contact-input" placeholder="tu@correo.com" />
+              </div>
+              <div>
+                <label class="contact-label">Teléfono</label>
+                <input type="tel" name="Telefono" x-model="form.telefono" class="contact-input" placeholder="+00 000 0000" />
+              </div>
+            </div>
+            <div class="mt-2">
+              <label class="contact-label">Asunto</label>
+              <input type="text" name="Asunto" x-model="form.asunto" required class="contact-input" placeholder="Tema del mensaje" />
+            </div>
+            <div class="mt-2">
+              <label class="contact-label">Mensaje</label>
+              <textarea name="Mensaje" x-model="form.mensaje" required rows="5" class="contact-input" placeholder="Describe tu requerimiento con el mayor detalle posible"></textarea>
+            </div>
+            <div class="mt-4 flex items-center gap-3">
+              <button type="submit" class="contact-submit">
+                <span x-show="!sending">Enviar Mensaje</span>
+                <span x-show="sending" class="inline-flex items-center gap-2"><i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Enviando...</span>
+              </button>
+              <a href="mailto:ventas@universalq.com" class="contact-alt">Contactar por Correo</a>
+            </div>
+            <p x-show="sent" class="text-emerald-400 text-sm font-bold mt-3">Mensaje preparado en tu cliente de correo. Si no se abre automáticamente, usa el botón "Contactar por Correo".</p>
+          </form>
+        </div>
+
+        <!-- Información y CTA -->
+        <div class="reveal reveal-right">
+          <div class="info-card">
+            <h3 class="info-title">Oficinas y Soporte</h3>
+            <p class="info-text">Operamos multilocal con equipos intercontinentales. Respuesta inmediata y transparente.</p>
+            <div class="info-list">
+              <div class="info-item"><i data-lucide="mail"></i> ventas@universalq.com</div>
+              <div class="info-item"><i data-lucide="phone"></i> +00 000 0000</div>
+              <div class="info-item"><i data-lucide="map-pin"></i> Presencia Global</div>
+            </div>
+            <a href="../index.html#productos" class="info-cta">Ver Catálogo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-300 pt-32 pb-12 border-t border-slate-800 site-footer section-immersive">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-12 mb-20 reveal reveal-up">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 text-blue-400">
+            <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
+              <circle cx="45" cy="45" r="35" stroke-width="8" />
+              <line x1="70" y1="70" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
+            </svg>
+          </div>
+          <span class="text-4xl font-black text-white italic tracking-tighter uppercase">Universal<span class="text-blue-400">Q</span></span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-10">
+          <template x-for="link in ['Historia', 'Misión', 'Visión', 'Catálogo', 'Contacto']">
+            <a href="#" class="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-blue-400 transition-colors" x-text="link"></a>
+          </template>
+        </div>
+      </div>
+      <div class="text-center pt-12 border-t border-slate-700 reveal reveal-up">
+        <p class="text-slate-400 text-[10px] uppercase tracking-[0.5em] font-bold mb-4">
+          © 2024 UniversalQ S.A. – Global Resources Strategy & Intelligence
+        </p>
+        <div class="flex justify-center gap-6 text-[9px] text-slate-400 font-black uppercase">
+          <a href="#" class="hover:text-white">Términos</a>
+          <a href="#" class="hover:text-white">Privacidad</a>
+          <a href="#" class="hover:text-white">Compliance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Animaciones y utilidades (similares a páginas existentes)
+    document.addEventListener('alpine:init', () => {});
+
+    // Quitar preload con entrada
+    window.addEventListener('load', () => {
+      const body = document.body;
+      body.classList.remove('preload');
+      body.classList.add('page-enter');
+      setTimeout(() => body.classList.remove('page-enter'), 900);
+      lucide.createIcons();
+    });
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Tilt
+    const addTilt = (el) => {
+      let raf = null;
+      const damp = 6; const perspective = 800;
+      const reset = () => { el.style.transform = `perspective(${perspective}px) rotateX(0) rotateY(0)`; };
+      el.style.transform = `perspective(${perspective}px)`;
+      el.addEventListener('mousemove', (e) => {
+        const b = el.getBoundingClientRect();
+        const cx = b.left + b.width / 2; const cy = b.top + b.height / 2;
+        const dx = (e.clientX - cx) / (b.width / 2);
+        const dy = (e.clientY - cy) / (b.height / 2);
+        const rx = (-dy * damp).toFixed(2); const ry = (dx * damp).toFixed(2);
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          el.style.transform = `perspective(${perspective}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+      });
+      el.addEventListener('mouseleave', reset);
+    };
+    document.querySelectorAll('.tilt').forEach(addTilt);
+
+    // Mouse Glow Effect
+    const addGlow = (el) => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        el.style.setProperty('--mouse-x', `${x}px`);
+        el.style.setProperty('--mouse-y', `${y}px`);
+      });
+    };
+    document.querySelectorAll('.glow-card').forEach(addGlow);
+
+    // Form handling (mailto) con subject + body amigable
+    function contactForm(){
+      return {
+        form: { nombre:'', empresa:'', email:'', telefono:'', asunto:'', mensaje:'' },
+        sending: false, sent: false,
+        submit(){
+          this.sending = true;
+          const subject = encodeURIComponent(`[Contacto] ${this.form.asunto || 'Consulta'} - ${this.form.nombre}`);
+          const body = encodeURIComponent(
+            `Nombre: ${this.form.nombre}\nEmpresa: ${this.form.empresa}\nEmail: ${this.form.email}\nTeléfono: ${this.form.telefono}\n\nMensaje:\n${this.form.mensaje}`
+          );
+          const mailto = `mailto:ventas@universalq.com?subject=${subject}&body=${body}`;
+          setTimeout(() => {
+            window.location.href = mailto;
+            this.sending = false; this.sent = true;
+          }, 400);
+        }
+      }
+    }
+  </script>
+</body>
+</html>

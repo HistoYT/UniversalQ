@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="style slide.css">
     <link rel="stylesheet" href="style quienes somos.css">
     <link rel="stylesheet" href="style productos.css">
+    <link rel="stylesheet" href="productos.css">
     </head>
 <body 
     x-data="universalQ()"
@@ -35,7 +36,7 @@
         class="fixed w-full z-50 transition-all duration-500 nav-sticky"
     >
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-3 group cursor-pointer">
+            <a href="index.html#inicio" class="flex items-center gap-3 group cursor-pointer">
                 <div class="relative flex items-center justify-center w-10 h-10 group-hover:scale-110 transition-transform duration-300 text-blue-400">
                     <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
                         <circle cx="45" cy="45" r="35" stroke-width="8" />
@@ -48,18 +49,23 @@
                 <span class="text-2xl font-black tracking-tighter uppercase italic transition-colors duration-300 text-white">
                     Universal<span class="not-italic transition-colors duration-300 text-blue-400">Q</span>
                 </span>
-            </div>
+            </a>
 
             <div class="hidden lg:flex items-center gap-10 font-bold text-[11px] header-nav">
-                <template x-for="item in ['Inicio', 'Nosotros', 'Productos', 'Contacto']">
-                    <a :href="'#' + item.toLowerCase()" 
+                <template x-for="[label, url] in Object.entries({
+                    'Inicio': 'index.html#inicio',
+                    'Nosotros': 'Quines Somos/index.html',
+                    'Productos': 'index.html#productos',
+                    'Contacto': 'contacto/index.html'
+                })">
+                    <a :href="url" 
                        class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" 
                        :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'"
-                       x-text="item"></a>
+                       x-text="label"></a>
                 </template>
-                <button class="bg-blue-700 text-white px-7 py-3 rounded-full hover:bg-blue-800 transition-all uppercase tracking-widest font-black shadow-lg header-cta">
+                <a href="contacto/index.html" class="bg-blue-700 text-white px-7 py-3 rounded-full hover:bg-blue-800 transition-all uppercase tracking-widest font-black shadow-lg header-cta">
                     Contacto Corporativo
-                </button>
+                </a>
             </div>
 
             <button class="lg:hidden transition-colors duration-300 text-white" @click="isMenuOpen = !isMenuOpen">
@@ -70,8 +76,13 @@
 
         <!-- Menú Móvil -->
         <div x-show="isMenuOpen" x-transition class="lg:hidden bg-slate-900 border-b border-slate-700 p-6 space-y-4">
-            <template x-for="item in ['Inicio', 'Nosotros', 'Productos', 'Contacto']">
-                <a :href="'#' + item.toLowerCase()" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false" x-text="item"></a>
+            <template x-for="[label, url] in Object.entries({
+                'Inicio': 'index.html#inicio',
+                'Nosotros': 'Quines Somos/index.html',
+                'Productos': 'index.html#productos',
+                'Contacto': 'contacto/index.html'
+            })">
+                <a :href="url" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false" x-text="label"></a>
             </template>
         </div>
     </nav>
@@ -124,9 +135,9 @@
                         <p class="text-xl text-white font-medium max-w-xl leading-relaxed drop-shadow-lg" x-text="slide.desc"></p>
 
                         <div class="flex gap-4 pt-4">
-                            <button class="bg-white text-slate-950 px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs hover:bg-blue-700 hover:text-white transition-all shadow-2xl">
+                            <a href="#productos" class="bg-white text-slate-950 px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs hover:bg-blue-700 hover:text-white transition-all shadow-2xl inline-flex items-center">
                                 Nuestros Productos
-                            </button>
+                            </a>
                             <button class="bg-slate-900/40 backdrop-blur-md border border-white/50 text-white px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all">
                                 Historia
                             </button>
@@ -226,65 +237,65 @@
     </section>
 
     <!-- Productos -->
-    <section id="productos" class="py-32 bg-white relative">
+    <section id="productos" class="py-32 bg-white relative section-deco">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-7xl font-black text-slate-900 italic">Catálogo <span class="text-blue-700 not-italic">Estratégico</span></h2>
-                <p class="mt-4 text-slate-600 uppercase tracking-widest text-[10px] font-bold">Liderazgo en pureza y especificaciones técnicas garantizadas</p>
+                <h2 class="text-5xl md:text-7xl font-black text-slate-900 italic title">Catálogo <span class="text-blue-700 not-italic">UniversalQ</span></h2>
+                <p class="mt-4 text-slate-600 uppercase tracking-widest text-[10px] font-bold subtitle">Liderazgo en pureza y especificaciones técnicas garantizadas</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 productos-grid">
                 <!-- Card 1 -->
-                <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-700/50 transition-all shadow-md hover:shadow-2xl">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="https://www.shutterstock.com/shutterstock/videos/2654162/thumb/1.jpg?ip=x480" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
-                        <div class="absolute bottom-6 left-6 p-3 bg-blue-700 rounded-xl text-white">
+                <div class="group product-card">
+                    <div class="media">
+                        <img src="WhatsApp Image 2026-03-13 at 10.30.50 PM.jpeg" alt="Azúcar ICUMSA 45" />
+                        <div class="badge-icon">
                             <i data-lucide="wheat"></i>
                         </div>
                     </div>
-                    <div class="p-10 space-y-4">
-                        <span class="text-[10px] font-bold text-blue-700 uppercase tracking-widest">Agrícola</span>
-                        <h4 class="text-2xl font-black text-slate-900 italic">Azúcar ICUMSA 45</h4>
-                        <p class="text-slate-600 text-sm">Suministro premium de azúcar refinada de la más alta pureza mundial.</p>
-                        <div class="pt-6 border-t border-slate-100 flex justify-between items-center">
-                            <span class="text-[9px] font-black uppercase text-slate-500">SGS Certified</span>
-                            <button class="text-blue-700 font-black text-[10px] uppercase hover:text-blue-800 transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
+                    <div class="content">
+                        <span class="pill">Agrícola</span>
+                        <h4 class="name text-2xl font-black italic">Azúcar ICUMSA 45</h4>
+                        <p class="desc">Suministro premium de azúcar refinada de la más alta pureza mundial.</p>
+                        <div class="meta">
+                            <span class="tag">SGS Certified</span>
+                            <button class="action">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
                         </div>
                     </div>
                 </div>
                 <!-- Card 2 -->
-                <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-700/50 transition-all shadow-md hover:shadow-2xl">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="https://icib.co/_next/image?url=https%3A%2F%2Ffiles.icib.co%2Ffiles%2F1738605304_4onyx7D54VGMdnkxU1dAa8USRa5FIzGND57CuVmj.jpg&w=1920&q=75" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
-                        <div class="absolute bottom-6 left-6 p-3 bg-blue-700 rounded-xl text-white">
+                <div class="group product-card">
+                    <div class="media">
+                        <img src="WhatsApp Image 2026-03-13 at 10.36.39 PM.jpeg" alt="Hierro y Platinoides" />
+                        <div class="badge-icon">
                             <i data-lucide="gem"></i>
                         </div>
                     </div>
-                    <div class="p-10 space-y-4">
-                        <span class="text-[10px] font-bold text-blue-700 uppercase tracking-widest">Minería</span>
-                        <h4 class="text-2xl font-black text-slate-900 italic">Hierro y Platinoides</h4>
-                        <p class="text-slate-600 text-sm">Metales estratégicos para la industria pesada y tecnología avanzada.</p>
-                        <div class="pt-6 border-t border-slate-100 flex justify-between items-center">
-                            <span class="text-[9px] font-black uppercase text-slate-500">Global Trade</span>
-                            <button class="text-blue-700 font-black text-[10px] uppercase hover:text-blue-800 transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
+                    <div class="content">
+                        <span class="pill">Minería</span>
+                        <h4 class="name text-2xl font-black italic">Hierro y Platinoides</h4>
+                        <p class="desc">Metales estratégicos para la industria pesada y tecnología avanzada.</p>
+                        <div class="meta">
+                            <span class="tag">Global Trade</span>
+                            <button class="action">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
                         </div>
                     </div>
                 </div>
                 <!-- Card 3 -->
-                <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-700/50 transition-all shadow-md hover:shadow-2xl">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="https://diariodelhuila.com/wp-content/uploads/ph1.jpeg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
-                        <div class="absolute bottom-6 left-6 p-3 bg-blue-700 rounded-xl text-white">
+                <div class="group product-card">
+                    <div class="media">
+                        <img src="WhatsApp Image 2026-03-13 at 10.29.56 PM.jpeg" alt="Diésel y Carbón" />
+                        <div class="badge-icon">
                             <i data-lucide="factory"></i>
                         </div>
                     </div>
-                    <div class="p-10 space-y-4">
-                        <span class="text-[10px] font-bold text-blue-700 uppercase tracking-widest">Energía</span>
-                        <h4 class="text-2xl font-black text-slate-900 italic">Diésel y Carbón</h4>
-                        <p class="text-slate-600 text-sm">Fuentes de energía de alta eficiencia para operaciones industriales masivas.</p>
-                        <div class="pt-6 border-t border-slate-100 flex justify-between items-center">
-                            <span class="text-[9px] font-black uppercase text-slate-500">High Efficiency</span>
-                            <button class="text-blue-700 font-black text-[10px] uppercase hover:text-blue-800 transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
+                    <div class="content">
+                        <span class="pill">Energía</span>
+                        <h4 class="name text-2xl font-black italic">Diésel y Carbón</h4>
+                        <p class="desc">Fuentes de energía de alta eficiencia para operaciones industriales masivas.</p>
+                        <div class="meta">
+                            <span class="tag">High Efficiency</span>
+                            <button class="action">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
                         </div>
                     </div>
                 </div>

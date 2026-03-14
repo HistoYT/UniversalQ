@@ -1,0 +1,162 @@
+/* Productos - estilos dedicados */
+
+/* Sección Productos */
+#productos {
+  --prod-accent: #1d4ed8; /* blue-700 */
+  --prod-accent-600: #2563eb; /* blue-600 */
+  --prod-ink: #0f172a; /* slate-900 */
+  --prod-text: #475569; /* slate-600 */
+  --prod-border: #e2e8f0; /* slate-200 */
+  --prod-shadow: 0 8px 30px rgba(2, 6, 23, 0.08);
+  --prod-shadow-hover: 0 16px 45px rgba(2, 6, 23, 0.16);
+}
+
+/* Título y subtítulo */
+#productos .title {
+  letter-spacing: -0.02em;
+}
+#productos .subtitle {
+  letter-spacing: 0.35em;
+}
+
+/* Tarjeta de producto */
+.product-card {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--prod-border);
+  box-shadow: var(--prod-shadow);
+  transition: transform 280ms cubic-bezier(.2,.65,.2,1),
+              box-shadow 280ms cubic-bezier(.2,.65,.2,1),
+              border-color 280ms ease;
+  will-change: transform, box-shadow;
+  background: #fff;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--prod-shadow-hover);
+  border-color: color-mix(in srgb, var(--prod-accent) 25%, var(--prod-border));
+}
+
+/* Imagen con overlay e icono */
+.product-card .media {
+  height: 16rem; /* 256px */
+  position: relative;
+  overflow: hidden;
+}
+.product-card .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(32%);
+  transform: scale(1.02);
+  transition: transform 700ms ease, filter 500ms ease, opacity 300ms ease;
+}
+.product-card:hover .media img {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+}
+.product-card .media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(2,6,23,.55), rgba(2,6,23,0));
+  pointer-events: none;
+}
+.product-card .media .badge-icon {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #fff;
+  background: var(--prod-accent);
+  box-shadow: 0 6px 18px rgba(29,78,216,.35);
+}
+
+/* Contenido */
+.product-card .content {
+  padding: 2.25rem;
+}
+.product-card .pill {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--prod-accent);
+}
+.product-card .name {
+  margin-top: .35rem;
+  font-weight: 900;
+  color: var(--prod-ink);
+}
+.product-card .desc {
+  margin-top: .35rem;
+  color: var(--prod-text);
+  font-size: .95rem;
+}
+
+/* Footer de la tarjeta */
+.product-card .meta {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eaeef4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product-card .meta .tag {
+  color: #64748b; /* slate-500 */
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: .35em;
+  font-size: 9px;
+}
+
+/* Botón acción */
+.product-card .action {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: var(--prod-accent);
+  transition: color 200ms ease, transform 200ms ease;
+}
+.product-card .action:hover {
+  color: var(--prod-accent-600);
+  transform: translateX(2px);
+}
+
+/* Grid responsive refinado (opcional si no usas Tailwind para esto) */
+@media (min-width: 768px) {
+  .productos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+/* Etiqueta sutil detrás del título (decorativo) */
+#productos .section-deco {
+  position: relative;
+}
+#productos .section-deco::after {
+  content: "UniversalQ";
+  position: absolute;
+  inset: auto 0 -2.2rem 0;
+  margin: auto;
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.25rem;
+  letter-spacing: .2em;
+  color: rgba(15, 23, 42, .035);
+  pointer-events: none;
+}
