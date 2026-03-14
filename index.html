@@ -16,20 +16,12 @@
     <link rel="stylesheet" href="slider.css">
     <!-- Lógica JS -->
     <script src="script.js"></script>
-    <style>
-        @keyframes pulse-whatsapp {
-          0%, 100% {
-            transform: scale(1);
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-          }
-          50% {
-            transform: scale(1.08);
-            box-shadow: 0 0 35px rgba(37, 211, 102, 0.6);
-          }
-        }
-        .animate-pulse-whatsapp { animation: pulse-whatsapp 2.5s infinite ease-in-out; }
-    </style>
-</head>
+    <link rel="stylesheet" href="style header.css">
+    <link rel="stylesheet" href="style footer.css">
+    <link rel="stylesheet" href="style slide.css">
+    <link rel="stylesheet" href="style quienes somos.css">
+    <link rel="stylesheet" href="style productos.css">
+    </head>
 <body 
     x-data="universalQ()"
     x-init="init()"
@@ -40,7 +32,7 @@
     <!-- Navegación -->
     <nav 
         :class="isScrolled ? 'bg-slate-900/90 backdrop-blur-md py-4 border-b border-slate-700 shadow-xl' : 'bg-transparent py-8'"
-        class="fixed w-full z-50 transition-all duration-500"
+        class="fixed w-full z-50 transition-all duration-500 nav-sticky"
     >
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-3 group cursor-pointer">
@@ -58,14 +50,14 @@
                 </span>
             </div>
 
-            <div class="hidden lg:flex items-center gap-10 font-bold text-[11px]">
+            <div class="hidden lg:flex items-center gap-10 font-bold text-[11px] header-nav">
                 <template x-for="item in ['Inicio', 'Nosotros', 'Productos', 'Contacto']">
                     <a :href="'#' + item.toLowerCase()" 
                        class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" 
                        :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'"
                        x-text="item"></a>
                 </template>
-                <button class="bg-blue-700 text-white px-7 py-3 rounded-full hover:bg-blue-800 transition-all uppercase tracking-widest font-black shadow-lg">
+                <button class="bg-blue-700 text-white px-7 py-3 rounded-full hover:bg-blue-800 transition-all uppercase tracking-widest font-black shadow-lg header-cta">
                     Contacto Corporativo
                 </button>
             </div>
@@ -155,50 +147,80 @@
         </div>
     </section>
 
+    <!-- Quienes Somos (Home) -->
+    <section id="home-quienes-somos" class="home-about py-24 bg-slate-950 relative overflow-hidden">
+        <div class="home-about-bg"></div>
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-4 scroll-animate">
+                <span class="home-about-tag">Quiénes Somos</span>
+                <h2 class="home-about-title">Soluciones Globales Estratégicas</h2>
+                <p class="home-about-text">En UniversalQ integramos comercio, logística y cadena de suministro para los sectores de minería, agroindustria y energía. Operamos intercontinentalmente con equipos 24/7, priorizando transparencia, velocidad y cumplimiento técnico.</p>
+                <ul class="home-about-list">
+                    <li>Presencia multilocal y cumplimiento aduanero.</li>
+                    <li>Garantías de cobro y seguridad en la transacción.</li>
+                    <li>Operativa intercontinental con respuesta inmediata.</li>
+                </ul>
+                <div class="pt-2">
+                    <a href="Quines Somos/index.html" class="home-about-cta">Saber más</a>
+                </div>
+            </div>
+            <div class="scroll-animate">
+                <div class="home-about-card">
+                    <div class="home-about-card-top">
+                        <span class="badge blue">Presencia Global</span>
+                        <span class="badge indigo">Cumplimiento</span>
+                    </div>
+                    <div class="home-about-card-body">
+                        <h3>Operaciones Multilocales</h3>
+                        <p>Contratos claros, trazabilidad y especificaciones certificadas para asegurar entregas confiables en 5 continentes.</p>
+                        <div class="grid grid-cols-2 gap-3 mt-4">
+                            <div class="stat">
+                                <span class="stat-k">24/7</span>
+                                <span class="stat-l">Cobertura</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-k">5</span>
+                                <span class="stat-l">Continentes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Nosotros -->
-    <section id="nosotros" class="py-32 bg-slate-900 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-[150px] -z-10"></div>
-        
+    <section id="nosotros" class="py-32 bg-slate-900 relative overflow-hidden section-nosotros">
+        <div class="section-nosotros-bg"></div>
         <div class="max-w-6xl mx-auto px-6">
-            
-            <!-- Título de Sección -->
-            <div class="text-center mb-16 scroll-animate opacity-0 translate-y-24 transition-all duration-1000 ease-out">
-                <span class="text-blue-400 font-black uppercase tracking-widest text-xs">Identidad Corporativa</span>
-                <h2 class="text-4xl md:text-6xl font-black text-white italic mt-2">Misión y <span class="text-blue-400 not-italic">Visión</span></h2>
+            <div class="text-center mb-14">
+                <span class="section-title-tag">Identidad Corporativa</span>
+                <h2 class="section-title"><span class="text-blue-400">UniversalQ</span> en acción</h2>
+                <p class="mt-3 text-slate-300 max-w-2xl mx-auto text-base md:text-lg">Soluciones operacionales y estratégicas para sectores críticos, basadas en transparencia, velocidad y cobertura global.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                
-                <!-- Tarjeta Misión -->
-                <div class="glow-card scroll-animate opacity-0 translate-y-24 scale-95 transition-all duration-1000 ease-out delay-100 rounded-3xl p-px bg-slate-800 shadow-xl border border-slate-700">
-                    <div class="relative bg-slate-800 rounded-[23px] h-full p-10">
-                        <div class="flex flex-col h-full">
-                            <div class="flex-shrink-0 flex items-center gap-6 mb-6">
-                                <div class="p-4 bg-slate-700 border border-slate-600 rounded-2xl text-blue-400">
-                                    <i data-lucide="target" class="w-10 h-10"></i>
-                                </div>
-                                <h3 class="text-4xl font-black text-white uppercase italic">Misión</h3>
-                            </div>
-                            <p class="text-slate-300 text-base leading-relaxed flex-grow">Proveer soluciones integrales y multiproducto a escala global en los sectores de alimentación, agricultura, ganadería y minería, garantizando una respuesta inmediata 24/7 a través de un enfoque multidisciplinar y multicultural. Nuestra razón de ser es resolver con agilidad las necesidades de la sociedad, operando bajo los pilares estrictos de honestidad, sinceridad y transparencia en cada una de nuestras localizaciones intercontinentales.</p>
-                        </div>
+            <div class="grid gap-5 md:grid-cols-3">
+                <article class="section-card scroll-animate">
+                    <div class="card-head">
+                        <i data-lucide="rocket" class="w-6 h-6"></i>
+                        <span>Velocidad 24/7</span>
                     </div>
-                </div>
-
-                <!-- Tarjeta Visión -->
-                <div class="glow-card scroll-animate opacity-0 translate-y-24 scale-95 transition-all duration-1000 ease-out delay-300 rounded-3xl p-px bg-slate-800 shadow-xl border border-slate-700">
-                    <div class="relative bg-slate-800 rounded-[23px] h-full p-10">
-                        <div class="flex flex-col h-full">
-                            <div class="flex-shrink-0 flex items-center gap-6 mb-6">
-                                <div class="p-4 bg-slate-700 border border-slate-600 rounded-2xl text-blue-400">
-                                    <i data-lucide="eye" class="w-10 h-10"></i>
-                                </div>
-                                <h3 class="text-4xl font-black text-white uppercase italic">Visión</h3>
-                            </div>
-                            <p class="text-slate-300 text-base leading-relaxed flex-grow">Consolidarnos como el referente intercontinental en gestión multilocalización, liderando la integración de servicios en los mercados primarios y extractivos de minería. Aspiramos a ser reconocidos por nuestra capacidad de ofrecer soluciones directas y eficaces en entornos complejos, manteniendo siempre la cercanía y la confianza que definen nuestra ética profesional.</p>
-                        </div>
+                    <p class="text-slate-300 text-sm">Operamos en tiempo real con equipos regionales y procesos adaptativos para respuesta inmediata.</p>
+                </article>
+                <article class="section-card scroll-animate">
+                    <div class="card-head">
+                        <i data-lucide="shield" class="w-6 h-6"></i>
+                        <span>Confianza Transparente</span>
                     </div>
-                </div>
-
+                    <p class="text-slate-300 text-sm">Informes claros con especificaciones certificadas y seguimientos automatizados desde origen hasta destino.</p>
+                </article>
+                <article class="section-card scroll-animate">
+                    <div class="card-head">
+                        <i data-lucide="globe" class="w-6 h-6"></i>
+                        <span>Cobertura Global</span>
+                    </div>
+                    <p class="text-slate-300 text-sm">Presencia en puertos clave y logística multimodal para asegurar entregas confiables en 5 continentes.</p>
+                </article>
             </div>
         </div>
     </section>
@@ -299,7 +321,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-950 text-slate-300 pt-32 pb-12 border-t border-slate-800">
+    <footer class="bg-slate-950 text-slate-300 pt-32 pb-12 border-t border-slate-800 site-footer">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
                 <div class="flex items-center gap-3">
@@ -368,55 +390,63 @@
                 <div class="absolute inset-0 opacity-[0.05] bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-repeat pointer-events-none"></div>
                 
                 <template x-for="(msg, index) in chatMessages" :key="index">
-                    <div class="flex flex-col space-y-3 relative z-10"
-                         x-transition:enter="transition-all ease-cubic-bezier(0.34, 1.56, 0.64, 1) duration-400"
-                         :x-transition:enter-start="msg.from === 'user' ? 'opacity-0 translate-x-8' : 'opacity-0 -translate-x-8'"
-                         x-transition:enter-end="opacity-100 translate-x-0">
-                         
-                        <!-- Mensaje -->
-                        <div class="flex" :class="msg.from === 'user' ? 'justify-end' : 'justify-start'">
-                            <div class="p-2 px-3 rounded-lg shadow-sm max-w-[85%] leading-relaxed"
-                                :class="msg.from === 'user' 
-                                    ? 'bg-[#D9FDD3] text-gray-900 rounded-tr-none' 
-                                    : 'bg-white text-gray-900 rounded-tl-none'">
-                                <div class="flex flex-col">
-                                    <p x-text="msg.text" class="text-[13px]"></p>
-                                    <div x-show="msg.time" class="self-end flex items-center gap-1 mt-1">
-                                        <span x-text="msg.time" class="text-[10px] text-gray-500/90"></span>
-                                        <!-- Read receipt for user messages -->
-                                        <i x-show="msg.from === 'user'" data-lucide="check-check" class="w-4 h-4 text-blue-500"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Opciones -->
-                        <template x-if="msg.options && msg.options.length > 0">
-                            <div class="flex flex-col gap-2 pl-2">
-                                <template x-for="(option, i) in msg.options" :key="i">
-                                    <button 
-                                        @click="option.action === 'send' ? sendToWhatsapp() : selectChatOption(option)" 
-                                        class="text-left px-4 py-3 rounded-lg bg-white hover:bg-gray-50 text-[#008069] border border-gray-200 shadow-sm text-xs font-bold transition-all flex items-center justify-between group"
-                                        x-transition:enter="transition-all duration-300 ease-out"
-                                        x-transition:enter-start="opacity-0 translate-y-2"
-                                        x-transition:enter-end="opacity-100 translate-y-0"
-                                        :style="`transition-delay: ${i * 80}ms`"
-                                    >
-                                        <span x-text="option.text" class="font-medium"></span>
-                                        <i data-lucide="chevron-right" class="w-3 h-3 text-[#008069] opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                                    </button>
-                                </template>
+                    <div class="relative z-10">
+                        <!-- Separador de día al estilo WhatsApp -->
+                        <template x-if="msg.type === 'day'">
+                            <div class="flex justify-center my-2">
+                                <span class="px-3 py-1 text-[11px] rounded-full bg-[#E1F7D5] text-gray-700 border border-gray-300/70">Hoy</span>
                             </div>
                         </template>
 
-                        <!-- Input de Texto -->
-                        <template x-if="msg.input">
-                            <form @submit.prevent="submitChatInput()" class="flex gap-2 mt-2 p-1 bg-white rounded-full border border-gray-300 shadow-sm" x-transition>
-                                <input type="text" x-model="chatInput" class="bg-transparent w-full text-xs text-gray-800 px-4 focus:outline-none" placeholder="Escribe el puerto aquí..." autoFocus>
-                                <button type="submit" class="w-8 h-8 flex items-center justify-center bg-[#008069] rounded-full text-white hover:bg-[#006a55] transition-colors shrink-0">
-                                    <i data-lucide="send" class="w-4 h-4 transition-transform duration-300" :class="{ 'rotate-90 scale-0 opacity-0': isSending }"></i>
-                                </button>
-                            </form>
+                        <!-- Burbuja de mensaje -->
+                        <template x-if="!msg.type">
+                            <div class="flex flex-col space-y-1"
+                                 x-transition:enter="transition-all ease-out duration-300"
+                                 :x-transition:enter-start="msg.from === 'user' ? 'opacity-0 translate-x-4' : 'opacity-0 -translate-x-4'"
+                                 x-transition:enter-end="opacity-100 translate-x-0">
+                                <div class="flex" :class="msg.from === 'user' ? 'justify-end' : 'justify-start'">
+                                    <div class="px-3 py-2 rounded-2xl shadow-sm max-w-[85%] leading-relaxed"
+                                        :class="msg.from === 'user' 
+                                            ? 'bg-[#D9FDD3] text-gray-900 rounded-tr-none' 
+                                            : 'bg-white text-gray-900 rounded-tl-none'">
+                                        <p x-text="msg.text" class="text-[13px]"></p>
+                                        <div class="flex items-center gap-1 mt-1 justify-end">
+                                            <span x-show="msg.time" x-text="msg.time" class="text-[10px] text-gray-500/90"></span>
+                                            <!-- Doble check azul para mensajes del usuario -->
+                                            <i x-show="msg.from === 'user'" data-lucide="check-check" class="w-4 h-4 text-[#53BDEB]"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Opciones -->
+                                <template x-if="msg.options && msg.options.length > 0">
+                                    <div class="flex flex-col gap-2 pl-2">
+                                        <template x-for="(option, i) in msg.options" :key="i">
+                                            <button 
+                                                @click="option.action === 'send' ? sendToWhatsapp() : selectChatOption(option)" 
+                                                class="text-left px-4 py-3 rounded-lg bg-white hover:bg-gray-50 text-[#008069] border border-gray-200 shadow-sm text-xs font-bold transition-all flex items-center justify-between group"
+                                                x-transition:enter="transition-all duration-300 ease-out"
+                                                x-transition:enter-start="opacity-0 translate-y-2"
+                                                x-transition:enter-end="opacity-100 translate-y-0"
+                                                :style="`transition-delay: ${i * 80}ms`"
+                                            >
+                                                <span x-text="option.text" class="font-medium"></span>
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-[#008069] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                            </button>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <!-- Input de Texto -->
+                                <template x-if="msg.input">
+                                    <form @submit.prevent="submitChatInput()" class="flex gap-2 mt-2 p-1 bg-white rounded-full border border-gray-300 shadow-sm" x-transition>
+                                        <input type="text" x-model="chatInput" class="bg-transparent w-full text-xs text-gray-800 px-4 focus:outline-none" placeholder="Escribe el puerto aquí..." autoFocus>
+                                        <button type="submit" class="w-8 h-8 flex items-center justify-center bg-[#008069] rounded-full text-white hover:bg-[#006a55] transition-colors shrink-0">
+                                            <i data-lucide="send" class="w-4 h-4 transition-transform duration-300" :class="{ 'rotate-90 scale-0 opacity-0': isSending }"></i>
+                                        </button>
+                                    </form>
+                                </template>
+                            </div>
                         </template>
                     </div>
                 </template>

@@ -1,0 +1,5 @@
+/* Estilos de la sección Misión y Visión (intensificados) */
+.section-mision { background: linear-gradient(180deg, #22c55e 0%, #0f5134 60%, #071a12 100%); }
+#mision-vision article { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+#mision-vision article:hover { transform: translateY(-4px); box-shadow: 0 18px 45px rgba(2,6,23,.5); }
+#mision-vision h2 { letter-spacing: -0.01em; }

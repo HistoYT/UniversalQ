@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniversalQ | Quiénes Somos</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js -->
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Estilos proyecto (mismos de la home) -->
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../slider.css" />
+  <link rel="stylesheet" href="../style header.css" />
+  <link rel="stylesheet" href="../style footer.css" />
+  <link rel="stylesheet" href="../style quienes somos.css" />
+  <link rel="stylesheet" href="../style productos.css" />
+
+  <!-- Animaciones inmersivas específicas de la página -->
+  <style>
+    /* Entrada/Salida de página */
+    body.preload { opacity: 0; filter: blur(8px); transform: translateY(10px); }
+    @keyframes pageIn { from { opacity: 0; transform: translateY(14px); filter: blur(8px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+    @keyframes pageOut { from { opacity: 1; transform: translateY(0); filter: blur(0); } to { opacity: 0; transform: translateY(10px); filter: blur(10px); } }
+    body.page-enter { animation: pageIn 800ms cubic-bezier(.2,.65,.2,1) forwards; }
+    body.page-leave { animation: pageOut 420ms ease forwards; pointer-events: none; }
+
+    /* Capas ambientales sutiles en secciones */
+    .section-immersive { position: relative; overflow: hidden; }
+    .section-immersive::before,
+    .section-immersive::after { content: ""; position: absolute; inset: -20%; pointer-events: none; z-index: 0; }
+    .section-immersive::before {
+      background:
+        radial-gradient(60rem 40rem at 120% -20%, rgba(59,130,246,0.10), transparent 60%),
+        radial-gradient(50rem 30rem at -20% 120%, rgba(16,185,129,0.08), transparent 60%);
+      animation: glowShift 14s ease-in-out infinite alternate;
+      filter: blur(2px);
+    }
+    .section-immersive::after {
+      background:
+        radial-gradient(35rem 20rem at 80% 120%, rgba(79,70,229,0.08), transparent 60%),
+        radial-gradient(25rem 18rem at -10% 0%, rgba(56,189,248,0.08), transparent 60%);
+      mix-blend-mode: screen;
+      animation: glowShift2 18s ease-in-out infinite alternate;
+    }
+    @keyframes glowShift { 0% { transform: translate3d(-2%, 0, 0) scale(1.02); } 100% { transform: translate3d(2%, -2%, 0) scale(1.06); } }
+    @keyframes glowShift2 { 0% { transform: translate3d(2%, 2%, 0) scale(1); } 100% { transform: translate3d(-2%, -1%, 0) scale(1.04); } }
+
+    /* Efectos Reveal */
+    .reveal { opacity: 0; transform: translateY(26px); filter: blur(6px);
+      transition: opacity .9s cubic-bezier(.2,.65,.2,1), transform .9s cubic-bezier(.2,.65,.2,1), filter .9s cubic-bezier(.2,.65,.2,1); will-change: transform, opacity; }
+    .reveal.in { opacity: 1; transform: none; filter: blur(0); }
+    .reveal-up { transform: translateY(26px); }
+    .reveal-down { transform: translateY(-26px); }
+    .reveal-left { transform: translateX(-38px); }
+    .reveal-right { transform: translateX(38px); }
+    .reveal-zoom { transform: scale(.96); }
+
+    /* Tarjetas con efecto tilt sutil */
+    .tilt { transform-style: preserve-3d; transition: transform 320ms cubic-bezier(.2,.65,.2,1), box-shadow .3s ease; will-change: transform; }
+    .tilt:hover { box-shadow: 0 20px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.04) inset; }
+
+    /* Stagger utilitario: aplicar a contenedor y JS setea delays en hijos */
+    .stagger > * { transition-delay: 0ms; }
+
+    /* Respeto a usuarios con reduce-motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      body.preload { opacity: 1; filter: none; transform: none; }
+    }
+  </style>
+
+  <!-- Lógica JS: header dedicado + script general -->
+  <script src="header.js" defer></script>
+  <script src="../script.js" defer></script>
+</head>
+<body class="preload bg-slate-950 text-slate-200 selection:bg-blue-500 selection:text-white custom-scrollbar">
+  <!-- Header (idéntico a la página principal) -->
+  <nav 
+    x-data="uqHeader()"
+    x-init="init()"
+    :class="isScrolled ? 'bg-slate-900/90 backdrop-blur-md py-4 border-b border-slate-700 shadow-xl' : 'bg-transparent py-8'"
+    class="fixed w-full z-50 transition-all duration-500 nav-sticky reveal reveal-down"
+  >
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <div class="flex items-center gap-3 group cursor-pointer">
+        <div class="relative flex items-center justify-center w-10 h-10 group-hover:scale-110 transition-transform duration-300 text-blue-400">
+          <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
+            <circle cx="45" cy="45" r="35" stroke-width="8" />
+            <line x1="70" y1="70" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
+            <circle cx="45" cy="45" r="20" class="fill-blue-500/20 stroke-blue-500" stroke-width="1.5" />
+            <path d="M30 45 Q 45 35 60 45" class="stroke-blue-400" stroke-width="1.5" />
+            <path d="M30 50 Q 45 60 60 50" class="stroke-blue-400" stroke-width="1.5" />
+          </svg>
+        </div>
+        <a href="../index.html" class="text-2xl font-black tracking-tighter uppercase italic transition-colors duration-300 text-white">
+          Universal<span class="not-italic transition-colors duration-300 text-blue-400">Q</span>
+        </a>
+      </div>
+
+      <div class="hidden lg:flex items-center gap-10 font-bold text-[11px] header-nav">
+        <a href="../index.html#inicio" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Inicio</a>
+        <a href="#quienes-somos" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Nosotros</a>
+        <a href="../index.html#productos" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Productos</a>
+        <a href="../index.html#contacto" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Contacto</a>
+        <a href="../index.html#contacto" class="bg-blue-700 text-white px-7 py-3 rounded-full hover:bg-blue-800 transition-all uppercase tracking-widest font-black shadow-lg header-cta">
+          Contacto Corporativo
+        </a>
+      </div>
+
+      <button class="lg:hidden transition-colors duration-300 text-white" @click="isMenuOpen = !isMenuOpen">
+        <i x-show="!isMenuOpen" data-lucide="menu"></i>
+        <i x-show="isMenuOpen" data-lucide="x"></i>
+      </button>
+    </div>
+
+    <!-- Menú Móvil -->
+    <div x-show="isMenuOpen" x-transition class="lg:hidden bg-slate-900 border-b border-slate-700 p-6 space-y-4">
+      <a href="../index.html#inicio" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Inicio</a>
+      <a href="#quienes-somos" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Nosotros</a>
+      <a href="../index.html#productos" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Productos</a>
+      <a href="../index.html#contacto" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Contacto</a>
+    </div>
+  </nav>
+
+  <main class="pt-28">
+    <!-- 1) ¿Quiénes somos? -->
+    <section id="quienes-somos" class="py-24 bg-slate-900 relative overflow-hidden section-immersive">
+      <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div class="reveal reveal-up">
+          <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] font-black text-blue-300 mb-3">Quiénes Somos</span>
+          <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">
+            Soluciones Globales <span class="text-blue-400 not-italic">Estratégicas</span>
+          </h1>
+          <p class="mt-5 text-slate-300 text-lg leading-relaxed max-w-xl">
+            En UniversalQ integramos comercio, logística y cadena de suministro para sectores de minería, agroindustria y energía.
+            Operamos intercontinentalmente con equipos 24/7, priorizando transparencia, velocidad y cumplimiento técnico.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="../index.html#productos" class="bg-white text-slate-900 px-6 py-3 rounded-md font-black uppercase tracking-widest text-xs hover:bg-blue-700 hover:text-white transition-all shadow-lg">Nuestro Catálogo</a>
+            <a href="../index.html#contacto" class="bg-slate-900/40 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-md font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all">Contáctanos</a>
+          </div>
+        </div>
+        <div class="relative rounded-2xl overflow-hidden border border-slate-700/50 bg-gradient-to-br from-slate-900 to-slate-800 p-4 shadow-2xl reveal reveal-right tilt">
+          <div class="relative z-10 h-72 rounded-xl border border-white/10 bg-slate-950 p-5 flex flex-col justify-between">
+            <div>
+              <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-black text-blue-300">Presencia Global</div>
+              <p class="mt-2 text-slate-300 text-sm">Operaciones multilocales, contratos clear y cumplimiento aduanero.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-3 stagger">
+              <div class="bg-slate-800/60 rounded-xl p-3 border border-blue-400/15 reveal reveal-zoom">
+                <p class="text-blue-300 text-[10px] uppercase font-bold tracking-[0.15em]">Mercados</p>
+                <p class="mt-1 text-slate-200 text-sm">Minería, Agro, Energía</p>
+              </div>
+              <div class="bg-slate-800/60 rounded-xl p-3 border border-emerald-400/15 reveal reveal-zoom">
+                <p class="text-emerald-300 text-[10px] uppercase font-bold tracking-[0.15em]">Cobertura</p>
+                <p class="mt-1 text-slate-200 text-sm">24/7 en 5 continentes</p>
+              </div>
+            </div>
+          </div>
+          <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.22),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(56,189,248,0.16),transparent_40%)]"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) Misión y Visión -->
+    <section id="mision-vision" class="py-24 bg-slate-950 section-immersive">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-8">
+          <article class="rounded-3xl border border-sky-300/10 bg-gradient-to-br from-slate-800 to-slate-900 p-8 shadow-2xl reveal reveal-up tilt">
+            <div class="inline-flex items-center gap-2 text-blue-300 text-xs uppercase tracking-[0.25em] font-bold">Misión</div>
+            <h2 class="mt-2 text-3xl md:text-4xl font-black text-white">Soluciones integrales para operaciones globales</h2>
+            <p class="mt-3 text-slate-300 leading-relaxed">Proveer soluciones integrales y multiproducto a escala global en los sectores de alimentación, agricultura, ganadería y minería, garantizando una respuesta inmediata 24/7 a través de un enfoque multidisciplinar y multicultural. Nuestra razón de ser es resolver con agilidad las necesidades de la sociedad, operando bajo los pilares estrictos de honestidad, sinceridad y transparencia en cada una de nuestras localizaciones intercontinentales."</p>
+          </article>
+          <article class="rounded-3xl border border-indigo-300/10 bg-gradient-to-br from-slate-800 to-slate-900 p-8 shadow-2xl reveal reveal-up tilt">
+            <div class="inline-flex items-center gap-2 text-indigo-300 text-xs uppercase tracking-[0.25em] font-bold">Visión</div>
+            <h2 class="mt-2 text-3xl md:text-4xl font-black text-white">Ser el referente intercontinental</h2>
+            <p class="mt-3 text-slate-300 leading-relaxed">Consolidarnos como el referente intercontinental en gestión multilocalización, liderando la integración de servicios en los mercados primarios y extractivos de minería. Aspiramos a ser reconocidos por nuestra capacidad de ofrecer soluciones directas y eficaces en entornos complejos, manteniendo siempre la cercanía y la confianza que definen nuestra ética profesiona</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) Objetivos Estratégicos -->
+    <section id="objetivos" class="py-24 bg-slate-900 section-immersive">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12 reveal reveal-up">
+          <p class="text-xs uppercase tracking-[0.35em] font-black text-blue-300">Objetivos Estratégicos</p>
+          <h3 class="mt-3 text-3xl md:text-5xl font-black text-white">Dirección para el crecimiento sostenible</h3>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 stagger">
+          <div class="rounded-2xl bg-slate-900/80 border border-blue-600/20 p-6 hover:border-blue-400 hover:shadow-2xl transition reveal reveal-zoom tilt">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-300 mx-auto"><i data-lucide="globe"></i></div>
+            <h4 class="mt-4 text-xl font-bold text-white text-center">Intermediación Bidireccional y Multiproducto</h4>
+            <p class="mt-2 text-slate-300 text-center">Expandir presencia y capacidad operacional en mercados clave.</p>
+          </div>
+          <div class="rounded-2xl bg-slate-900/80 border border-emerald-400/20 p-6 hover:border-emerald-300 hover:shadow-2xl transition reveal reveal-zoom tilt">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-300 mx-auto"><i data-lucide="trending-up"></i></div>
+            <h4 class="mt-4 text-xl font-bold text-white text-center">Garantías de Cobro y Seguridad en la Transacción</h4>
+            <p class="mt-2 text-slate-300 text-center">Crecimiento responsable con respeto por el planeta y las comunidades.</p>
+          </div>
+          <div class="rounded-2xl bg-slate-900/80 border border-indigo-400/20 p-6 hover:border-indigo-300 hover:shadow-2xl transition reveal reveal-zoom tilt">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-500/20 text-indigo-300 mx-auto"><i data-lucide="users"></i></div>
+            <h4 class="mt-4 text-xl font-bold text-white text-center">Operativa Intercontinental 24/7</h4>
+            <p class="mt-2 text-slate-300 text-center">Promover equipos de alto rendimiento con una cultura de excelencia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (idéntico a la página principal) -->
+  <footer class="bg-slate-950 text-slate-300 pt-32 pb-12 border-t border-slate-800 site-footer section-immersive">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-12 mb-20 reveal reveal-up">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 text-blue-400">
+            <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
+              <circle cx="45" cy="45" r="35" stroke-width="8" />
+              <line x1="70" y1="70" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
+            </svg>
+          </div>
+          <span class="text-4xl font-black text-white italic tracking-tighter uppercase">Universal<span class="text-blue-400">Q</span></span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-10">
+          <template x-for="link in ['Historia', 'Misión', 'Visión', 'Catálogo', 'Contacto']">
+            <a href="#" class="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-blue-400 transition-colors" x-text="link"></a>
+          </template>
+        </div>
+      </div>
+      <div class="text-center pt-12 border-t border-slate-700 reveal reveal-up">
+        <p class="text-slate-400 text-[10px] uppercase tracking-[0.5em] font-bold mb-4">
+          © 2024 UniversalQ S.A. – Global Resources Strategy & Intelligence
+        </p>
+        <div class="flex justify-center gap-6 text-[9px] text-slate-400 font-black uppercase">
+          <a href="#" class="hover:text-white">Términos</a>
+          <a href="#" class="hover:text-white">Privacidad</a>
+          <a href="#" class="hover:text-white">Compliance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="header.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <!-- Script de animaciones inmersivas: reveals, tilt, transiciones de salida -->
+  <script>
+    (function(){
+      const body = document.body;
+      // Entrada de página
+      window.addEventListener('load', () => {
+        body.classList.remove('preload');
+        body.classList.add('page-enter');
+        setTimeout(() => body.classList.remove('page-enter'), 900);
+      });
+
+      // Scroll reveal via IntersectionObserver
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      // Stagger: aplicar delays progresivos a hijos
+      document.querySelectorAll('.stagger').forEach((cont) => {
+        Array.from(cont.children).forEach((child, i) => {
+          child.style.transitionDelay = (i * 120) + 'ms';
+        });
+      });
+
+      // Tilt sutil en elementos con clase .tilt
+      const addTilt = (el) => {
+        let raf = null;
+        const damp = 6; // máximo de grados
+        const perspective = 800;
+        const reset = () => { el.style.transform = `perspective(${perspective}px) rotateX(0) rotateY(0)`; };
+        el.style.transform = `perspective(${perspective}px)`;
+        el.addEventListener('mousemove', (e) => {
+          const b = el.getBoundingClientRect();
+          const cx = b.left + b.width / 2;
+          const cy = b.top + b.height / 2;
+          const dx = (e.clientX - cx) / (b.width / 2);
+          const dy = (e.clientY - cy) / (b.height / 2);
+          const rx = (-dy * damp).toFixed(2);
+          const ry = (dx * damp).toFixed(2);
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => {
+            el.style.transform = `perspective(${perspective}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+          });
+        });
+        el.addEventListener('mouseleave', reset);
+      };
+      document.querySelectorAll('.tilt').forEach(addTilt);
+
+      // Transición de salida al navegar a otra página
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
+        const href = a.getAttribute('href');
+        if (!href) return;
+
+        // Enlaces ancla de la misma página: scroll suave sin transición de salida
+        if (href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          return;
+        }
+
+        // Ignorar externos, target _blank o descarga
+        const url = new URL(href, window.location.href);
+        if (url.origin !== window.location.origin || a.hasAttribute('target') || a.hasAttribute('download')) return;
+
+        e.preventDefault();
+        body.classList.add('page-leave');
+        setTimeout(() => { window.location.href = href; }, 350);
+      }, { capture: true });
+    })();
+  </script>
+</body>
+</html>

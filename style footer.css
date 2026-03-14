@@ -1,0 +1,43 @@
+/* =============================
+   Footer + Widget WhatsApp
+   Archivo: style footer.css
+   ============================= */
+
+/* Footer base */
+.site-footer {
+  background: #020617; /* slate-950 */
+  color: #cbd5e1;      /* slate-300 */
+  border-top: 1px solid #1f2937; /* slate-800 */
+}
+
+/* Enlaces del footer */
+.site-footer a {
+  color: #94a3b8; /* slate-400 */
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: .2em;
+  transition: color 200ms ease;
+}
+.site-footer a:hover { color: #fff; }
+
+/* Animación de pulso para botón WhatsApp */
+@keyframes pulse-whatsapp {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(37, 211, 102, 0.6);
+  }
+}
+.animate-pulse-whatsapp { animation: pulse-whatsapp 2.5s infinite ease-in-out; }
+
+/* Transiciones del panel de chat (referenciadas por x-transition) */
+.chat-enter {
+  transition: transform 250ms ease, opacity 250ms ease;
+}
+.chat-leave {
+  transition: transform 200ms ease, opacity 200ms ease;
+}

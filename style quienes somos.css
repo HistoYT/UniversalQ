@@ -1,0 +1,138 @@
+/* =============================
+   Sección: Nosotros (Identidad Corporativa)
+   Archivo: style quienes somos.css
+   ============================= */
+
+/* Fondo decorativo sutil con overlay para la sección */
+.section-nosotros {
+  position: relative;
+  isolation: isolate; /* asegura que el overlay no afecte a elementos externos */
+}
+
+.section-nosotros-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  /* Gradientes suaves para profundidad */
+  background:
+    radial-gradient(1200px 600px at 10% 0%, rgba(59,130,246,0.12), transparent 50%),
+    radial-gradient(900px 500px at 100% 100%, rgba(2,132,199,0.10), transparent 50%),
+    linear-gradient(180deg, rgba(15,23,42,0.65), rgba(15,23,42,0.65));
+}
+
+/* Encabezado de sección */
+.section-title-tag {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  border-radius: 0.5rem;
+  color: #e2e8f0;
+  background: rgba(59,130,246,0.12);
+  border: 1px solid rgba(226,232,240,0.15);
+  backdrop-filter: blur(6px);
+}
+
+.section-title {
+  margin-top: 0.5rem;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+/* Tarjetas con realce y microinteracciones */
+.section-card {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  background: rgba(2,6,23,0.35);
+  border: 1px solid rgba(226,232,240,0.08);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.35);
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease, background 300ms ease;
+  overflow: hidden;
+}
+.section-card::before {
+  /* brillo dinámico al pasar el cursor */
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(450px 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59,130,246,0.15), transparent 40%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+.section-card:hover::before {
+  opacity: 1;
+}
+.section-card:hover {
+  transform: translateY(-4px);
+  background: rgba(2,6,23,0.45);
+  border-color: rgba(56,189,248,0.25);
+  box-shadow: 0 16px 40px rgba(2,6,23,0.45);
+}
+
+/* Cabecera de cada tarjeta */
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: #e2e8f0;
+  font-weight: 800;
+}
+.card-head i {
+  color: rgb(96 165 250 / 1);
+}
+
+/* Animaciones de aparición al hacer scroll */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(16px) scale(0.985);
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.scroll-animate.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Soporte para cursores en tarjetas con brillo (setupCardGlow()) */
+.glow-card {
+  position: relative;
+}
+
+/* =============================
+   Home: Sección Quiénes Somos (resumen)
+   ============================= */
+.home-about { position: relative; isolation: isolate; }
+.home-about-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(1000px 600px at -10% 0%, rgba(59,130,246,0.15), transparent 50%),
+    radial-gradient(800px 500px at 110% 100%, rgba(99,102,241,0.10), transparent 55%),
+    linear-gradient(180deg, rgba(2,6,23,0.65), rgba(2,6,23,0.65));
+}
+.home-about-tag { display:inline-block; padding: .35rem .75rem; font-size:.65rem; font-weight:900; letter-spacing:.25em; text-transform:uppercase; color:#e2e8f0; background:rgba(59,130,246,.12); border:1px solid rgba(226,232,240,.15); border-radius:.5rem; backdrop-filter: blur(6px); }
+.home-about-title { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 900; color: #fff; letter-spacing: -0.02em; }
+.home-about-text { color:#cbd5e1; max-width: 56ch; }
+.home-about-list { margin-top:.5rem; color:#9ca3af; font-size:.95rem; display:grid; gap:.4rem; list-style: none; padding-left: 1.25rem; position: relative; }
+.home-about-list li { position: relative; }
+.home-about-list li::before { content:''; position:absolute; left:-1.25rem; top:.5rem; width:.4rem; height:.4rem; background:#60a5fa; border-radius:9999px; box-shadow:0 0 0 2px rgba(59,130,246,.25); }
+.home-about-cta { display:inline-block; padding:.85rem 1.25rem; background:#1d4ed8; color:#fff; border-radius:.65rem; font-weight:900; letter-spacing:.15em; text-transform:uppercase; font-size:.7rem; border: 1px solid rgba(255,255,255,.15); box-shadow: 0 10px 30px rgba(29,78,216,.35); transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+.home-about-cta:hover{ transform: translateY(-2px); background:#1e40af; box-shadow: 0 14px 40px rgba(29,78,216,.45); }
+
+.home-about-card { position:relative; border-radius:1.25rem; background: rgba(2,6,23,.5); border:1px solid rgba(226,232,240,.08); box-shadow:0 16px 40px rgba(2,6,23,.45); overflow:hidden; padding:1rem; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+.home-about-card:hover { transform: translateY(-4px); box-shadow:0 20px 60px rgba(2,6,23,.55); border-color: rgba(59,130,246,.25); }
+.home-about-card-top { display:flex; justify-content: space-between; gap:.5rem; margin-bottom:.5rem; }
+.badge { display:inline-block; font-size:.6rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; padding:.35rem .6rem; border-radius:.5rem; border:1px solid rgba(226,232,240,.15); }
+.badge.blue { color:#93c5fd; background:rgba(59,130,246,.12); }
+.badge.indigo { color:#a5b4fc; background:rgba(99,102,241,.12); }
+.home-about-card-body h3 { color:#fff; font-weight:900; letter-spacing:-.01em; }
+.home-about-card-body p { color:#cbd5e1; font-size:.95rem; margin-top:.25rem; }
+.stat { background: rgba(15,23,42,.75); border:1px solid rgba(226,232,240,.08); border-radius:.75rem; padding:.75rem; text-align:center; }
+.stat-k { display:block; color:#60a5fa; font-weight:900; font-style: italic; font-size:1.25rem; line-height:1; }
+.stat-l { display:block; color:#94a3b8; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; margin-top:.15rem; }

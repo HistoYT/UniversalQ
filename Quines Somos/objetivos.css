@@ -1,0 +1,5 @@
+/* Estilos de la sección Objetivos (intensificados) */
+.section-objetivos { background: linear-gradient(180deg, #8b5cf6 0%, #4c1d95 60%, #1e0a3c 100%); }
+#objetivos .objective-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+#objetivos .objective-card:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(2,6,23,.45); }
+#objetivos h3 { letter-spacing: -0.01em; }

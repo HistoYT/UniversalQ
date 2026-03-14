@@ -16,8 +16,8 @@ function universalQ() {
         // Datos de los slides con imágenes de alta calidad
         slides: [
             {
-                title: 'Potencia Agrícola',
-                titleAccent: 'Global',
+                title: 'AZUCAR',
+                titleAccent: 'INCUMSA',
                 desc: 'Suministro ininterrumpido de azúcar refinada y fertilizantes de alta pureza con estándares internacionales.',
                 image: 'Gemini_Generated_Image_awu88xawu88xawu8.png',
                 accent: 'Liderazgo en Agro',
@@ -99,11 +99,14 @@ function universalQ() {
             this.chatQuote = { topic: '', quantity: '', port: '' };
             this.chatMessages = [];
             setTimeout(() => { // Pequeño delay para que la ventana aparezca primero
-                this.chatMessages.push({ from: 'bot', time: this.getCurrentTime(), text: 'Hola, bienvenido a UniversalQ.' });
+                // Separador de día como en WhatsApp
+                this.chatMessages.push({ type: 'day' });
+                // Secuencia de saludo más humana
+                this.chatMessages.push({ from: 'bot', time: this.getCurrentTime(), text: 'Hola 👋, bienvenido a UniversalQ.' });
                 this.isBotTyping = true;
                 setTimeout(() => {
                     this.isBotTyping = false;
-                    this.chatMessages.push({ from: 'bot', time: this.getCurrentTime(), text: '¿Sobre qué recurso estratégico deseas recibir información hoy?', options: [
+                    this.chatMessages.push({ from: 'bot', time: this.getCurrentTime(), text: 'Soy tu asistente. ¿Sobre qué recurso estratégico deseas recibir información hoy?', options: [
                         { text: 'Cotizar Azúcar', value: 'Azúcar ICUMSA 45' },
                         { text: 'Minerales (Hierro/Litio)', value: 'Minerales y Metales' },
                         { text: 'Energía y Logística', value: 'Logística y Energía' }
@@ -180,7 +183,7 @@ function universalQ() {
         },
 
         setupCardGlow() {
-            // Espera a que el DOM esté listo
+           // Espera a que el DOM esté listo
             setTimeout(() => {
                 document.querySelectorAll('.glow-card').forEach(card => {
                     card.addEventListener('mousemove', e => {
@@ -192,26 +195,37 @@ function universalQ() {
             }, 100);
         },
 
-        // Animaciones de entrada/salida al hacer scroll
+        // Animaciones de entrada al hacer scroll
         setupScrollAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Entrada: Se vuelve visible y regresa a su posición original
-                        entry.target.classList.remove('opacity-0', 'translate-y-24', 'scale-95');
-                        entry.target.classList.add('opacity-100', 'translate-y-0', 'scale-100');
-                    } else {
-                        // Salida: Se desvanece y se desplaza hacia abajo
-                        entry.target.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
-                        entry.target.classList.add('opacity-0', 'translate-y-24', 'scale-95');
+                        entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.15 }); // Se activa cuando el 15% del elemento es visible
+            }, { threshold: 0.25 });
 
-            // Aplicar observador a todos los elementos con la clase
             setTimeout(() => {
                 document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
             }, 100);
         }
     };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const missionCard = document.querySelector('.mission-card');
+        const visionCard = document.querySelector('.vision-card');
+        const objectiveCards = document.querySelectorAll('.objective-card');
+
+       // Add event listeners for hover effects
+        if (missionCard) {
+            missionCard.addEventListener('mouseenter', () => missionCard.classList.add('scale-105'));
+            missionCard.addEventListener('mouseleave', () => missionCard.classList.remove('scale-105'));
+        }
+        if (visionCard) {
+            visionCard.addEventListener('mouseenter', () => visionCard.classList.add('scale-105'));
+            visionCard.addEventListener('mouseleave', () => visionCard.classList.remove('scale-105'));
+        }
+        objectiveCards.forEach(card => {
+            card.addEventListener('mouseenter', () => card.classList.add('scale-105'));
+            card.addEventListener('mouseleave', () => card.classList.remove('scale-105'));        });    });
 }
