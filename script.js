@@ -1,6 +1,7 @@
 function universalQ() {
     return {
         isScrolled: false,
+        currentLang: 'es',
         isMenuOpen: false,
         currentSlide: 0,
         slideInterval: null,

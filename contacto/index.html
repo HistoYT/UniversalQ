@@ -24,7 +24,7 @@
 <body class="preload bg-slate-950 text-slate-200 selection:bg-blue-500 selection:text-white custom-scrollbar">
   <!-- Header -->
   <nav 
-    x-data="{ isScrolled: false, isMenuOpen: false, init(){ this.isScrolled = window.pageYOffset>50; window.addEventListener('scroll', () => this.isScrolled = window.pageYOffset>50); } }"
+    x-data="{ currentLang: 'es', isScrolled: false, isMenuOpen: false, init(){ this.isScrolled = window.pageYOffset>50; window.addEventListener('scroll', () => this.isScrolled = window.pageYOffset>50); } }"
     x-init="init()"
     :class="isScrolled ? 'bg-slate-900/90 backdrop-blur-md py-4 border-b border-slate-700 shadow-xl' : 'bg-transparent py-8'"
     class="fixed w-full z-50 transition-all duration-500 nav-sticky reveal reveal-down"
@@ -50,7 +50,12 @@
         <a href="../Quines Somos/index.html" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Nosotros</a>
         <a href="../index.html#productos" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Productos</a>
         <a href="#contacto" class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'">Contacto</a>
-        <a href="#contactForm" class="bg-blue-700 text-white px-7 py-3 rounded-full hover:bg-blue-800 transition-all uppercase tracking-widest font-black shadow-lg header-cta">
+        <div class="lang-switcher">
+          <button @click="currentLang = 'es'" class="text-[11px] font-black tracking-tighter transition-colors" :class="currentLang === 'es' ? 'text-blue-400' : 'text-slate-500 hover:text-slate-300'">ES</button>
+          <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+          <button @click="currentLang = 'en'" class="text-[11px] font-black tracking-tighter transition-colors" :class="currentLang === 'en' ? 'text-blue-400' : 'text-slate-500 hover:text-slate-300'">EN</button>
+        </div>
+        <a href="#contactForm" class="text-white px-10 py-4 rounded-full transition-all uppercase tracking-widest font-black shadow-lg header-cta">
           Contacto Corporativo
         </a>
       </div>
@@ -67,6 +72,12 @@
       <a href="../Quines Somos/index.html" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Nosotros</a>
       <a href="../index.html#productos" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Productos</a>
       <a href="#contacto" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false">Contacto</a>
+      <div class="flex items-center gap-4 pt-4 border-t border-slate-800">
+        <div class="flex bg-slate-950/50 rounded-lg p-1 border border-slate-800">
+          <button @click="currentLang = 'es'" class="px-6 py-3 text-sm font-black rounded-md transition-all" :class="currentLang === 'es' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500'">ESPAÑOL</button>
+          <button @click="currentLang = 'en'" class="px-6 py-3 text-sm font-black rounded-md transition-all" :class="currentLang === 'en' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500'">ENGLISH</button>
+        </div>
+      </div>
     </div>
   </nav>
 
