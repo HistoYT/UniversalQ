@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+@keyframes zoom-in-effect {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+@keyframes zoom-out-effect {
+    from { transform: scale(1.1); }
+    to { transform: scale(1); }
+}
+
+.animate-zoom-in {
+    animation: zoom-in-effect 25s infinite alternate ease-in-out;
+}
+.animate-zoom-out {
+    animation: zoom-out-effect 25s infinite alternate ease-in-out;
+}
+
+/* ANIMACIONES CHAT */
+@keyframes slide-up-fade {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.chat-enter {
+    animation: slide-up-fade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slide-down-fade {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(20px) scale(0.95); }
+}
+
+.chat-leave {
+    animation: slide-down-fade 0.3s ease-in forwards;
+}
+
+/* SCROLLBAR PERSONALIZADO */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #0f172a; /* slate-900 */
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #1d4ed8; /* blue-700 */
+    border-radius: 10px;
+}
+
+/* --- Glow Card Effect --- */
+.glow-card {
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+}
+
+.glow-card::before {
+    content: '';
+    position: absolute;
+    left: var(--mouse-x, 50%);
+    top: var(--mouse-y, 50%);
+    width: 400px; /* Tamaño del resplandor */
+    height: 400px;
+    background: radial-gradient(circle closest-side, rgba(29, 78, 216, 0.15), transparent);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.glow-card:hover::before {
+    opacity: 1;
+}

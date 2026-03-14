@@ -8,80 +8,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js para interactividad -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="slider.css">
+    <!-- Lógica JS -->
+    <script src="script.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
+        @keyframes pulse-whatsapp {
+          0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+          }
+          50% {
+            transform: scale(1.08);
+            box-shadow: 0 0 35px rgba(37, 211, 102, 0.6);
+          }
         }
-
-        @keyframes slow-zoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-        .animate-slow-zoom {
-            animation: slow-zoom 25s infinite alternate ease-in-out;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #2563eb;
-            border-radius: 10px;
-        }
+        .animate-pulse-whatsapp { animation: pulse-whatsapp 2.5s infinite ease-in-out; }
     </style>
 </head>
 <body 
-    x-data="{ 
-        isScrolled: false, 
-        isMenuOpen: false, 
-        currentSlide: 0,
-        slides: [
-            {
-                title: 'Potencia Agrícola',
-                titleAccent: 'Global',
-                desc: 'Suministro ininterrumpido de azúcar refinada y fertilizantes de alta pureza con estándares internacionales.',
-                image: 'https://images.unsplash.com/photo-1530507629858-e4977d30e9e0?auto=format&fit=crop&q=80&w=1600',
-                accent: 'Liderazgo en Agro'
-            },
-            {
-                title: 'Energía e',
-                titleAccent: 'Infraestructura',
-                desc: 'Soluciones energéticas robustas para la infraestructura de las naciones en crecimiento.',
-                image: 'https://images.unsplash.com/photo-1516939884455-1445c8652f83?auto=format&fit=crop&q=80&w=1600',
-                accent: 'Energía Confiable'
-            },
-            {
-                title: 'Minería',
-                titleAccent: 'Estratégica',
-                desc: 'Extracción y comercialización de minerales críticos para la tecnología del mañana.',
-                image: 'https://images.unsplash.com/photo-1518152006812-edab29b069ac?auto=format&fit=crop&q=80&w=1600',
-                accent: 'Recursos Críticos'
-            }
-        ],
-        nextSlide() { this.currentSlide = (this.currentSlide + 1) % this.slides.length },
-        prevSlide() { this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length }
-    }"
-    x-init="setInterval(() => nextSlide(), 6000)"
+    x-data="universalQ()"
+    x-init="init()"
     @scroll.window="isScrolled = window.pageYOffset > 50"
-    class="bg-slate-950 text-white selection:bg-blue-600 selection:text-white custom-scrollbar"
+    class="bg-slate-900 text-slate-300 selection:bg-blue-500 selection:text-white custom-scrollbar"
 >
 
     <!-- Navegación -->
     <nav 
-        :class="isScrolled ? 'bg-slate-900/95 backdrop-blur-md py-4 border-b border-blue-500/20 shadow-xl' : 'bg-transparent py-8'"
+        :class="isScrolled ? 'bg-slate-900/90 backdrop-blur-md py-4 border-b border-slate-700 shadow-xl' : 'bg-transparent py-8'"
         class="fixed w-full z-50 transition-all duration-500"
     >
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-3 group cursor-pointer">
-                <div class="relative flex items-center justify-center w-10 h-10 text-blue-500 group-hover:scale-110 transition-transform">
+                <div class="relative flex items-center justify-center w-10 h-10 group-hover:scale-110 transition-transform duration-300 text-blue-400">
                     <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
                         <circle cx="45" cy="45" r="35" stroke-width="8" />
                         <line x1="70" y1="70" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
@@ -90,26 +53,31 @@
                         <path d="M30 50 Q 45 60 60 50" class="stroke-blue-400" stroke-width="1.5" />
                     </svg>
                 </div>
-                <span class="text-2xl font-black tracking-tighter text-white uppercase italic">Universal<span class="text-blue-500 not-italic">Q</span></span>
+                <span class="text-2xl font-black tracking-tighter uppercase italic transition-colors duration-300 text-white">
+                    Universal<span class="not-italic transition-colors duration-300 text-blue-400">Q</span>
+                </span>
             </div>
 
             <div class="hidden lg:flex items-center gap-10 font-bold text-[11px]">
                 <template x-for="item in ['Inicio', 'Nosotros', 'Productos', 'Contacto']">
-                    <a :href="'#' + item.toLowerCase()" class="text-white hover:text-blue-400 transition-colors uppercase tracking-[0.25em] drop-shadow-md" x-text="item"></a>
+                    <a :href="'#' + item.toLowerCase()" 
+                       class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" 
+                       :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'"
+                       x-text="item"></a>
                 </template>
-                <button class="bg-blue-600 text-white px-7 py-3 rounded-full hover:bg-blue-500 transition-all uppercase tracking-widest font-black shadow-lg">
+                <button class="bg-blue-700 text-white px-7 py-3 rounded-full hover:bg-blue-800 transition-all uppercase tracking-widest font-black shadow-lg">
                     Contacto Corporativo
                 </button>
             </div>
 
-            <button class="lg:hidden text-white" @click="isMenuOpen = !isMenuOpen">
+            <button class="lg:hidden transition-colors duration-300 text-white" @click="isMenuOpen = !isMenuOpen">
                 <i x-show="!isMenuOpen" data-lucide="menu"></i>
                 <i x-show="isMenuOpen" data-lucide="x"></i>
             </button>
         </div>
 
         <!-- Menú Móvil -->
-        <div x-show="isMenuOpen" x-transition class="lg:hidden bg-slate-900 border-b border-white/10 p-6 space-y-4">
+        <div x-show="isMenuOpen" x-transition class="lg:hidden bg-slate-900 border-b border-slate-700 p-6 space-y-4">
             <template x-for="item in ['Inicio', 'Nosotros', 'Productos', 'Contacto']">
                 <a :href="'#' + item.toLowerCase()" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false" x-text="item"></a>
             </template>
@@ -117,40 +85,57 @@
     </nav>
 
     <!-- Hero Slider -->
-    <section id="inicio" class="relative h-screen w-full overflow-hidden">
+    <section id="inicio" class="relative h-screen w-full overflow-hidden" @mouseenter="stopAutoSlide()" @mouseleave="startAutoSlide()">
         <template x-for="(slide, index) in slides" :key="index">
             <div 
                 x-show="currentSlide === index"
-                x-transition:enter="transition opacity-100 duration-1000"
+                x-transition:enter="transition-opacity duration-1000 ease-out"
                 x-transition:enter-start="opacity-0"
-                x-transition:leave="transition opacity-0 duration-1000"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition-opacity duration-700 ease-in"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
                 class="absolute inset-0"
             >
-                <div class="absolute inset-0 scale-100 animate-slow-zoom">
+                <div 
+                    class="absolute inset-0"
+                    :class="{
+                        'animate-zoom-in': slide.zoomType === 'in',
+                        'animate-zoom-out': slide.zoomType === 'out'
+                    }">
                     <img :src="slide.image" class="w-full h-full object-cover" />
                     <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
                     <div class="absolute inset-0 bg-black/40"></div>
                 </div>
 
                 <div class="relative h-full max-w-7xl mx-auto px-6 flex flex-col justify-center">
-                    <div class="max-w-3xl space-y-6">
-                        <div class="inline-flex items-center gap-3 px-4 py-2 bg-blue-600/40 border border-white/30 backdrop-blur-md rounded-lg">
+                    <div 
+                        class="max-w-3xl space-y-6"
+                        x-show="currentSlide === index"
+                        x-transition:enter="transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] delay-200"
+                        x-transition:enter-start="opacity-0 translate-y-10"
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:leave="transition-all duration-300 ease-in"
+                        x-transition:leave-start="opacity-100 translate-y-0"
+                        x-transition:leave-end="opacity-0 -translate-y-10"
+                    >
+                        <div class="inline-flex items-center gap-3 px-4 py-2 bg-blue-700/40 border border-white/30 backdrop-blur-md rounded-lg">
                             <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
                             <span class="text-xs font-black uppercase tracking-[0.2em] text-white" x-text="slide.accent"></span>
                         </div>
                         
                         <h1 class="text-5xl md:text-8xl font-black text-white leading-[0.95] drop-shadow-2xl">
                             <span x-text="slide.title"></span> <br/> 
-                            <span class="text-blue-400 italic" x-text="slide.titleAccent"></span>
+                            <span class="text-blue-400" x-text="slide.titleAccent"></span>
                         </h1>
 
                         <p class="text-xl text-white font-medium max-w-xl leading-relaxed drop-shadow-lg" x-text="slide.desc"></p>
 
                         <div class="flex gap-4 pt-4">
-                            <button class="bg-white text-slate-950 px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs hover:bg-blue-600 hover:text-white transition-all shadow-2xl">
+                            <button class="bg-white text-slate-950 px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs hover:bg-blue-700 hover:text-white transition-all shadow-2xl">
                                 Nuestros Productos
                             </button>
-                            <button class="bg-black/40 backdrop-blur-md border border-white/50 text-white px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all">
+                            <button class="bg-slate-900/40 backdrop-blur-md border border-white/50 text-white px-10 py-5 rounded-sm font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all">
                                 Historia
                             </button>
                         </div>
@@ -160,132 +145,124 @@
         </template>
         
         <!-- Controles Slider -->
-        <div class="absolute bottom-10 right-10 flex gap-4 z-20">
-            <button @click="prevSlide()" class="w-14 h-14 md:w-16 md:h-16 border-2 border-white/50 flex items-center justify-center hover:bg-blue-600 transition-all rounded-full backdrop-blur-md text-white">
+        <div class="slider-controls !right-auto !left-1/2 !-translate-x-1/2 !bottom-8">
+            <button @click="prevSlide()" class="slider-button">
                 <i data-lucide="chevron-left"></i>
             </button>
-            <button @click="nextSlide()" class="w-14 h-14 md:w-16 md:h-16 border-2 border-white/50 flex items-center justify-center hover:bg-blue-600 transition-all rounded-full backdrop-blur-md text-white">
+            <button @click="nextSlide()" class="slider-button">
                 <i data-lucide="chevron-right"></i>
             </button>
         </div>
     </section>
 
     <!-- Nosotros -->
-    <section id="nosotros" class="py-32 bg-slate-950 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-900/10 blur-[150px] -z-10"></div>
+    <section id="nosotros" class="py-32 bg-slate-900 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-[150px] -z-10"></div>
         
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-20 items-center">
-                <div class="space-y-8">
-                    <div class="inline-block p-2 bg-blue-600/10 border-l-4 border-blue-600 px-6">
-                        <span class="text-blue-500 font-black uppercase tracking-widest text-xs">Identidad Corporativa</span>
-                    </div>
-                    <h2 class="text-4xl md:text-6xl font-black text-white italic leading-tight">Nuestra <span class="text-blue-500 not-italic">Historia</span></h2>
-                    <p class="text-slate-300 text-lg leading-relaxed font-light">
-                        UniversalQ nació como una respuesta estratégica a la creciente demanda de suministros industriales de alta pureza. Fundada con la visión de conectar los recursos naturales más valiosos del planeta con los centros de producción global, nos hemos consolidado como un referente de confiabilidad y excelencia operativa.
-                    </p>
-                    <div class="grid grid-cols-2 gap-8">
-                        <div class="p-6 bg-slate-900/50 rounded-2xl border border-white/5">
-                            <i data-lucide="history" class="text-blue-500 mb-4 w-8 h-8"></i>
-                            <h4 class="font-black uppercase tracking-tighter text-xl mb-2">Trayectoria</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed uppercase">Años de experiencia optimizando cadenas de suministro.</p>
-                        </div>
-                        <div class="p-6 bg-slate-900/50 rounded-2xl border border-white/5">
-                            <i data-lucide="users" class="text-blue-500 mb-4 w-8 h-8"></i>
-                            <h4 class="font-black uppercase tracking-tighter text-xl mb-2">Alianzas</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed uppercase">Socios estratégicos en los 5 continentes.</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <!-- Título de Sección -->
+            <div class="text-center mb-16 scroll-animate opacity-0 translate-y-24 transition-all duration-1000 ease-out">
+                <span class="text-blue-400 font-black uppercase tracking-widest text-xs">Identidad Corporativa</span>
+                <h2 class="text-4xl md:text-6xl font-black text-white italic mt-2">Misión y <span class="text-blue-400 not-italic">Visión</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
                 
-                <div class="grid gap-6">
-                    <div class="bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-3xl border border-white/10">
-                        <div class="flex gap-6 items-start">
-                            <div class="p-4 bg-blue-600 rounded-2xl">
-                                <i data-lucide="target" class="text-white"></i>
+                <!-- Tarjeta Misión -->
+                <div class="glow-card scroll-animate opacity-0 translate-y-24 scale-95 transition-all duration-1000 ease-out delay-100 rounded-3xl p-px bg-slate-800 shadow-xl border border-slate-700">
+                    <div class="relative bg-slate-800 rounded-[23px] h-full p-10">
+                        <div class="flex flex-col h-full">
+                            <div class="flex-shrink-0 flex items-center gap-6 mb-6">
+                                <div class="p-4 bg-slate-700 border border-slate-600 rounded-2xl text-blue-400">
+                                    <i data-lucide="target" class="w-10 h-10"></i>
+                                </div>
+                                <h3 class="text-4xl font-black text-white uppercase italic">Misión</h3>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-black uppercase italic mb-2">Misión</h3>
-                                <p class="text-slate-400 text-sm">Proveer commodities industriales con los más altos estándares de calidad y pureza (Azúcar ICUMSA 45 y Urea 46%).</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-3xl border border-white/10">
-                        <div class="flex gap-6 items-start">
-                            <div class="p-4 bg-blue-600 rounded-2xl">
-                                <i data-lucide="eye" class="text-white"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-black uppercase italic mb-2">Visión</h3>
-                                <p class="text-slate-400 text-sm">Ser el hub global líder en el suministro de recursos críticos, reconocidos por nuestra innovación logística.</p>
-                            </div>
+                            <p class="text-slate-300 text-base leading-relaxed flex-grow">Proveer soluciones integrales y multiproducto a escala global en los sectores de alimentación, agricultura, ganadería y minería, garantizando una respuesta inmediata 24/7 a través de un enfoque multidisciplinar y multicultural. Nuestra razón de ser es resolver con agilidad las necesidades de la sociedad, operando bajo los pilares estrictos de honestidad, sinceridad y transparencia en cada una de nuestras localizaciones intercontinentales.</p>
                         </div>
                     </div>
                 </div>
+
+                <!-- Tarjeta Visión -->
+                <div class="glow-card scroll-animate opacity-0 translate-y-24 scale-95 transition-all duration-1000 ease-out delay-300 rounded-3xl p-px bg-slate-800 shadow-xl border border-slate-700">
+                    <div class="relative bg-slate-800 rounded-[23px] h-full p-10">
+                        <div class="flex flex-col h-full">
+                            <div class="flex-shrink-0 flex items-center gap-6 mb-6">
+                                <div class="p-4 bg-slate-700 border border-slate-600 rounded-2xl text-blue-400">
+                                    <i data-lucide="eye" class="w-10 h-10"></i>
+                                </div>
+                                <h3 class="text-4xl font-black text-white uppercase italic">Visión</h3>
+                            </div>
+                            <p class="text-slate-300 text-base leading-relaxed flex-grow">Consolidarnos como el referente intercontinental en gestión multilocalización, liderando la integración de servicios en los mercados primarios y extractivos de minería. Aspiramos a ser reconocidos por nuestra capacidad de ofrecer soluciones directas y eficaces en entornos complejos, manteniendo siempre la cercanía y la confianza que definen nuestra ética profesional.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Productos -->
-    <section id="productos" class="py-32 bg-black relative">
+    <section id="productos" class="py-32 bg-white relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-7xl font-black text-white italic">Catálogo <span class="text-blue-500 not-italic">Estratégico</span></h2>
-                <p class="mt-4 text-slate-500 uppercase tracking-widest text-[10px] font-bold">Liderazgo en pureza y especificaciones técnicas garantizadas</p>
+                <h2 class="text-5xl md:text-7xl font-black text-slate-900 italic">Catálogo <span class="text-blue-700 not-italic">Estratégico</span></h2>
+                <p class="mt-4 text-slate-600 uppercase tracking-widest text-[10px] font-bold">Liderazgo en pureza y especificaciones técnicas garantizadas</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <!-- Card 1 -->
-                <div class="group bg-slate-900/40 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all">
+                <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-700/50 transition-all shadow-md hover:shadow-2xl">
                     <div class="h-64 overflow-hidden relative">
                         <img src="https://www.shutterstock.com/shutterstock/videos/2654162/thumb/1.jpg?ip=x480" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
-                        <div class="absolute bottom-6 left-6 p-3 bg-blue-600 rounded-xl text-white">
+                        <div class="absolute bottom-6 left-6 p-3 bg-blue-700 rounded-xl text-white">
                             <i data-lucide="wheat"></i>
                         </div>
                     </div>
                     <div class="p-10 space-y-4">
-                        <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">Agrícola</span>
-                        <h4 class="text-2xl font-black text-white italic">Azúcar ICUMSA 45</h4>
-                        <p class="text-slate-400 text-sm">Suministro premium de azúcar refinada de la más alta pureza mundial.</p>
-                        <div class="pt-6 border-t border-white/5 flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-blue-700 uppercase tracking-widest">Agrícola</span>
+                        <h4 class="text-2xl font-black text-slate-900 italic">Azúcar ICUMSA 45</h4>
+                        <p class="text-slate-600 text-sm">Suministro premium de azúcar refinada de la más alta pureza mundial.</p>
+                        <div class="pt-6 border-t border-slate-100 flex justify-between items-center">
                             <span class="text-[9px] font-black uppercase text-slate-500">SGS Certified</span>
-                            <button class="text-blue-500 font-black text-[10px] uppercase hover:text-white transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
+                            <button class="text-blue-700 font-black text-[10px] uppercase hover:text-blue-800 transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
                         </div>
                     </div>
                 </div>
                 <!-- Card 2 -->
-                <div class="group bg-slate-900/40 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all">
+                <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-700/50 transition-all shadow-md hover:shadow-2xl">
                     <div class="h-64 overflow-hidden relative">
                         <img src="https://icib.co/_next/image?url=https%3A%2F%2Ffiles.icib.co%2Ffiles%2F1738605304_4onyx7D54VGMdnkxU1dAa8USRa5FIzGND57CuVmj.jpg&w=1920&q=75" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
-                        <div class="absolute bottom-6 left-6 p-3 bg-blue-600 rounded-xl text-white">
+                        <div class="absolute bottom-6 left-6 p-3 bg-blue-700 rounded-xl text-white">
                             <i data-lucide="gem"></i>
                         </div>
                     </div>
                     <div class="p-10 space-y-4">
-                        <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">Minería</span>
-                        <h4 class="text-2xl font-black text-white italic">Hierro y Platinoides</h4>
-                        <p class="text-slate-400 text-sm">Metales estratégicos para la industria pesada y tecnología avanzada.</p>
-                        <div class="pt-6 border-t border-white/5 flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-blue-700 uppercase tracking-widest">Minería</span>
+                        <h4 class="text-2xl font-black text-slate-900 italic">Hierro y Platinoides</h4>
+                        <p class="text-slate-600 text-sm">Metales estratégicos para la industria pesada y tecnología avanzada.</p>
+                        <div class="pt-6 border-t border-slate-100 flex justify-between items-center">
                             <span class="text-[9px] font-black uppercase text-slate-500">Global Trade</span>
-                            <button class="text-blue-500 font-black text-[10px] uppercase hover:text-white transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
+                            <button class="text-blue-700 font-black text-[10px] uppercase hover:text-blue-800 transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
                         </div>
                     </div>
                 </div>
                 <!-- Card 3 -->
-                <div class="group bg-slate-900/40 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all">
+                <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-blue-700/50 transition-all shadow-md hover:shadow-2xl">
                     <div class="h-64 overflow-hidden relative">
                         <img src="https://diariodelhuila.com/wp-content/uploads/ph1.jpeg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
-                        <div class="absolute bottom-6 left-6 p-3 bg-blue-600 rounded-xl text-white">
+                        <div class="absolute bottom-6 left-6 p-3 bg-blue-700 rounded-xl text-white">
                             <i data-lucide="factory"></i>
                         </div>
                     </div>
                     <div class="p-10 space-y-4">
-                        <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">Energía</span>
-                        <h4 class="text-2xl font-black text-white italic">Diésel y Carbón</h4>
-                        <p class="text-slate-400 text-sm">Fuentes de energía de alta eficiencia para operaciones industriales masivas.</p>
-                        <div class="pt-6 border-t border-white/5 flex justify-between items-center">
+                        <span class="text-[10px] font-bold text-blue-700 uppercase tracking-widest">Energía</span>
+                        <h4 class="text-2xl font-black text-slate-900 italic">Diésel y Carbón</h4>
+                        <p class="text-slate-600 text-sm">Fuentes de energía de alta eficiencia para operaciones industriales masivas.</p>
+                        <div class="pt-6 border-t border-slate-100 flex justify-between items-center">
                             <span class="text-[9px] font-black uppercase text-slate-500">High Efficiency</span>
-                            <button class="text-blue-500 font-black text-[10px] uppercase hover:text-white transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
+                            <button class="text-blue-700 font-black text-[10px] uppercase hover:text-blue-800 transition-colors flex items-center gap-2">Ficha Técnica <i data-lucide="arrow-right" class="w-3 h-3"></i></button>
                         </div>
                     </div>
                 </div>
@@ -294,65 +271,205 @@
     </section>
 
     <!-- Garantía -->
-    <section class="py-32 bg-white text-slate-950">
+    <section class="py-32 bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <i data-lucide="shield-check" class="w-20 h-20 text-blue-600 mx-auto mb-6"></i>
-            <h2 class="text-5xl md:text-7xl font-black italic tracking-tighter uppercase leading-none mb-12">Compromiso de <br/><span class="text-blue-600 not-italic">Pureza SGS.</span></h2>
-            <p class="text-slate-600 text-xl max-w-3xl mx-auto mb-16">Todas nuestras operaciones están respaldadas por inspecciones rigurosas en puerto, asegurando cumplimiento total de especificaciones.</p>
+            <i data-lucide="shield-check" class="w-20 h-20 text-blue-400 mx-auto mb-6"></i>
+            <h2 class="text-5xl md:text-7xl font-black italic tracking-tighter uppercase leading-none mb-12">Compromiso de <br/><span class="text-blue-400 not-italic">Pureza SGS.</span></h2>
+            <p class="text-slate-400 text-xl max-w-3xl mx-auto mb-16">Todas nuestras operaciones están respaldadas por inspecciones rigurosas en puerto, asegurando cumplimiento total de especificaciones.</p>
             
-            <div class="grid md:grid-cols-4 gap-12 w-full max-w-5xl mx-auto border-y border-slate-200 py-12">
+            <div class="grid md:grid-cols-4 gap-12 w-full max-w-5xl mx-auto border-y border-slate-700 py-12">
                 <div>
-                    <p class="text-5xl font-black text-blue-600 mb-1 italic">45</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Grado ICUMSA</p>
+                    <p class="text-5xl font-black text-blue-400 mb-1 italic">45</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Grado ICUMSA</p>
                 </div>
                 <div>
-                    <p class="text-5xl font-black text-blue-600 mb-1 italic">46%</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Contenido Urea</p>
+                    <p class="text-5xl font-black text-blue-400 mb-1 italic">46%</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Contenido Urea</p>
                 </div>
                 <div>
-                    <p class="text-5xl font-black text-blue-600 mb-1 italic">FOB</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Modalidad</p>
+                    <p class="text-5xl font-black text-blue-400 mb-1 italic">FOB</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Modalidad</p>
                 </div>
                 <div>
-                    <p class="text-5xl font-black text-blue-600 mb-1 italic">CIF</p>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Logística</p>
+                    <p class="text-5xl font-black text-blue-400 mb-1 italic">CIF</p>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Logística</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-950 pt-32 pb-12 border-t border-white/5">
+    <footer class="bg-slate-950 text-slate-300 pt-32 pb-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 text-blue-500">
+                    <div class="w-12 h-12 text-blue-400">
                         <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
                             <circle cx="45" cy="45" r="35" stroke-width="8" />
                             <line x1="70" y1="70" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
                         </svg>
                     </div>
-                    <span class="text-4xl font-black text-white italic tracking-tighter uppercase">Universal<span class="text-blue-500">Q</span></span>
+                    <span class="text-4xl font-black text-white italic tracking-tighter uppercase">Universal<span class="text-blue-400">Q</span></span>
                 </div>
                 <div class="flex flex-wrap justify-center gap-10">
                     <template x-for="link in ['Historia', 'Misión', 'Visión', 'Catálogo', 'Contacto']">
-                        <a href="#" class="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors" x-text="link"></a>
+                        <a href="#" class="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-blue-400 transition-colors" x-text="link"></a>
                     </template>
                 </div>
             </div>
             
-            <div class="text-center pt-12 border-t border-white/5">
-                <p class="text-slate-600 text-[10px] uppercase tracking-[0.5em] font-bold mb-4">
+            <div class="text-center pt-12 border-t border-slate-700">
+                <p class="text-slate-400 text-[10px] uppercase tracking-[0.5em] font-bold mb-4">
                     © 2024 UniversalQ S.A. – Global Resources Strategy & Intelligence
                 </p>
-                <div class="flex justify-center gap-6 text-[9px] text-slate-700 font-black uppercase">
-                    <a href="#" class="hover:text-blue-500">Términos</a>
-                    <a href="#" class="hover:text-blue-500">Privacidad</a>
-                    <a href="#" class="hover:text-blue-500">Compliance</a>
+                <div class="flex justify-center gap-6 text-[9px] text-slate-400 font-black uppercase">
+                    <a href="#" class="hover:text-white">Términos</a>
+                    <a href="#" class="hover:text-white">Privacidad</a>
+                    <a href="#" class="hover:text-white">Compliance</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- WhatsApp Chatbot Widget -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+        
+        <!-- Ventana de Chat (Simulación) -->
+        <div 
+            x-show="isChatOpen" 
+            x-transition:enter="chat-enter"
+            x-transition:leave="chat-leave"
+            class="bg-white border border-slate-300 rounded-2xl shadow-2xl w-80 overflow-hidden backdrop-blur-xl mb-2 flex flex-col"
+        >
+            <!-- Header Chat -->
+            <div class="bg-[#008069] p-4 flex items-center gap-3 shadow-sm flex-shrink-0">
+                <div class="relative">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center border border-white/10">
+                        <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    </div>
+                    <div class="absolute bottom-0 right-0 w-3 h-3 bg-[#25D366] rounded-full border-2 border-[#008069]"></div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-sm">Soporte UniversalQ</h4>
+                    <p class="text-green-100 text-[10px] animate-pulse">En línea ahora</p>
+                </div>
+                <button @click="isChatOpen = false" class="ml-auto text-white/70 hover:text-white">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Body Chat -->
+            <div 
+                x-ref="chatBody" 
+                x-init="$watch('chatMessages.length', () => $nextTick(() => chatBody.scrollTop = chatBody.scrollHeight))"
+                class="p-4 space-y-4 bg-[#EFEAE2] flex-grow overflow-y-auto custom-scrollbar h-80 relative"
+            >
+                <!-- Imagen de fondo sutil opcional (patrón) -->
+                <div class="absolute inset-0 opacity-[0.05] bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-repeat pointer-events-none"></div>
+                
+                <template x-for="(msg, index) in chatMessages" :key="index">
+                    <div class="flex flex-col space-y-3 relative z-10"
+                         x-transition:enter="transition-all ease-cubic-bezier(0.34, 1.56, 0.64, 1) duration-400"
+                         :x-transition:enter-start="msg.from === 'user' ? 'opacity-0 translate-x-8' : 'opacity-0 -translate-x-8'"
+                         x-transition:enter-end="opacity-100 translate-x-0">
+                         
+                        <!-- Mensaje -->
+                        <div class="flex" :class="msg.from === 'user' ? 'justify-end' : 'justify-start'">
+                            <div class="p-2 px-3 rounded-lg shadow-sm max-w-[85%] leading-relaxed"
+                                :class="msg.from === 'user' 
+                                    ? 'bg-[#D9FDD3] text-gray-900 rounded-tr-none' 
+                                    : 'bg-white text-gray-900 rounded-tl-none'">
+                                <div class="flex flex-col">
+                                    <p x-text="msg.text" class="text-[13px]"></p>
+                                    <div x-show="msg.time" class="self-end flex items-center gap-1 mt-1">
+                                        <span x-text="msg.time" class="text-[10px] text-gray-500/90"></span>
+                                        <!-- Read receipt for user messages -->
+                                        <i x-show="msg.from === 'user'" data-lucide="check-check" class="w-4 h-4 text-blue-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opciones -->
+                        <template x-if="msg.options && msg.options.length > 0">
+                            <div class="flex flex-col gap-2 pl-2">
+                                <template x-for="(option, i) in msg.options" :key="i">
+                                    <button 
+                                        @click="option.action === 'send' ? sendToWhatsapp() : selectChatOption(option)" 
+                                        class="text-left px-4 py-3 rounded-lg bg-white hover:bg-gray-50 text-[#008069] border border-gray-200 shadow-sm text-xs font-bold transition-all flex items-center justify-between group"
+                                        x-transition:enter="transition-all duration-300 ease-out"
+                                        x-transition:enter-start="opacity-0 translate-y-2"
+                                        x-transition:enter-end="opacity-100 translate-y-0"
+                                        :style="`transition-delay: ${i * 80}ms`"
+                                    >
+                                        <span x-text="option.text" class="font-medium"></span>
+                                        <i data-lucide="chevron-right" class="w-3 h-3 text-[#008069] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                    </button>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Input de Texto -->
+                        <template x-if="msg.input">
+                            <form @submit.prevent="submitChatInput()" class="flex gap-2 mt-2 p-1 bg-white rounded-full border border-gray-300 shadow-sm" x-transition>
+                                <input type="text" x-model="chatInput" class="bg-transparent w-full text-xs text-gray-800 px-4 focus:outline-none" placeholder="Escribe el puerto aquí..." autoFocus>
+                                <button type="submit" class="w-8 h-8 flex items-center justify-center bg-[#008069] rounded-full text-white hover:bg-[#006a55] transition-colors shrink-0">
+                                    <i data-lucide="send" class="w-4 h-4 transition-transform duration-300" :class="{ 'rotate-90 scale-0 opacity-0': isSending }"></i>
+                                </button>
+                            </form>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Bot is typing indicator -->
+                <div x-show="isBotTyping" x-transition class="flex justify-start relative z-10">
+                    <div class="p-3 rounded-lg text-xs shadow-sm bg-white text-gray-900 rounded-tl-none flex items-center gap-1.5">
+                        <span class="animate-bounce w-1.5 h-1.5 bg-gray-400 rounded-full [animation-delay:-0.3s]"></span>
+                        <span class="animate-bounce w-1.5 h-1.5 bg-gray-400 rounded-full [animation-delay:-0.15s]"></span>
+                        <span class="animate-bounce w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Botón Flotante con Etiqueta -->
+        <div @click="toggleChat()" class="flex items-center gap-3 cursor-pointer group">
+            <!-- Etiqueta de texto -->
+            <div 
+                x-show="!isChatOpen" 
+                x-transition:enter="transition-all duration-300 ease-out"
+                x-transition:enter-start="opacity-0 translate-x-4"
+                x-transition:enter-end="opacity-100 translate-x-0"
+                x-transition:leave="transition-all duration-200 ease-in"
+                x-transition:leave-start="opacity-100 translate-x-0"
+                x-transition:leave-end="opacity-0 translate-x-4"
+                class="bg-white p-3 px-4 rounded-xl shadow-lg border border-slate-200"
+            >
+                <p class="text-xs font-bold text-slate-800">¿Necesitas una cotización?</p>
+                <p class="text-[10px] text-slate-500">Chatea con nosotros</p>
+            </div>
+
+            <!-- Botón de icono -->
+            <div 
+                class="w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 z-50 relative"
+                :class="isChatOpen ? 'shadow-lg' : 'animate-pulse-whatsapp'"
+            >
+                <div class="relative w-8 h-8 flex items-center justify-center overflow-hidden">
+                    <!-- WhatsApp Icon -->
+                    <svg x-show="!isChatOpen" x-transition:enter="transition-transform duration-300 ease-out" x-transition:enter-start="rotate-45 scale-0" x-transition:leave="transition-transform duration-300 ease-in" x-transition:leave-end="-rotate-45 scale-0" class="absolute w-8 h-8 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    <!-- Close Icon -->
+                    <i x-show="isChatOpen" x-transition:enter="transition-transform duration-300 ease-out" x-transition:enter-start="rotate-45 scale-0" x-transition:leave="transition-transform duration-300 ease-in" x-transition:leave-end="-rotate-45 scale-0" data-lucide="x" class="absolute w-8 h-8 text-white"></i>
+                </div>
+                
+                <!-- Indicador de notificación -->
+                <span x-show="!isChatOpen" class="absolute top-0 right-0 flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                </span>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Inicializar iconos
