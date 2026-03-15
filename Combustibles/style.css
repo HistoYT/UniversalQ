@@ -1,0 +1,79 @@
+/* Estilos específicos para la página de Combustibles */
+
+body {
+    background-color: #020617; /* Slate 950 */
+}
+
+/* --- Hero Section Inmersiva --- */
+.product-hero {
+    position: relative;
+    height: 70vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 4rem;
+}
+
+.product-hero-bg {
+    position: absolute;
+    inset: 0;
+    /* Imagen específica de Combustibles */
+    background-image: url('../ChatGPT Image 15 mar 2026, 16_37_36.png');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.4) saturate(1.1);
+    transform: scale(1.05);
+    z-index: 0;
+    animation: slowZoom 20s infinite alternate ease-in-out;
+}
+
+@keyframes slowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.15); }
+}
+
+.product-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(2,6,23,0.4) 0%, rgba(2,6,23,0.85) 85%, #020617 100%);
+    z-index: 1;
+}
+
+/* --- Tarjetas de Especificaciones (Glassmorphism) --- */
+.spec-card {
+    background: rgba(30, 41, 59, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.spec-card:hover {
+    transform: translateY(-10px);
+    background: rgba(30, 41, 59, 0.5);
+    /* Borde naranja/ámbar para diferenciar contexto energía */
+    border-color: rgba(245, 158, 11, 0.4); 
+    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.4);
+}
+
+.spec-card i {
+    transition: transform 0.3s ease;
+}
+
+.spec-card:hover i {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* --- Animaciones de Entrada --- */
+.fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUpAnim 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes fadeUpAnim {
+    to { opacity: 1; transform: translateY(0); }
+}

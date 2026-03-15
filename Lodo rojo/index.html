@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniversalQ | Lodo Rojo (Residuo de Bauxita)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Estilos Globales (Rutas relativas ../) -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style header.css">
+    <link rel="stylesheet" href="../style footer.css">
+    <link rel="stylesheet" href="../style productos.css">
+    <link rel="stylesheet" href="../style whatsapp.css">
+    
+    <!-- Estilos Específicos de esta página -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Lógica JS Global -->
+    <script src="../script.js"></script>
+</head>
+<body 
+    x-data="universalQ()"
+    x-init="init()"
+    @scroll.window="isScrolled = window.pageYOffset > 50"
+    class="text-slate-300 selection:bg-red-600 selection:text-white custom-scrollbar"
+>
+
+    <!-- Navegación (Header Unificado) -->
+    <nav 
+        :class="isScrolled ? 'bg-slate-900/90 backdrop-blur-md py-4 border-b border-slate-700 shadow-xl' : 'bg-transparent py-8'"
+        class="fixed w-full z-50 transition-all duration-500 nav-sticky"
+    >
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="../index.html#inicio" class="flex items-center gap-3 group cursor-pointer">
+                <div class="relative flex items-center justify-center w-10 h-10 group-hover:scale-110 transition-transform duration-300 text-blue-400">
+                    <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
+                        <circle cx="45" cy="45" r="35" stroke-width="8" />
+                        <line x1="70" y1="70" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
+                        <circle cx="45" cy="45" r="20" class="fill-blue-500/20 stroke-blue-500" stroke-width="1.5" />
+                        <path d="M30 45 Q 45 35 60 45" class="stroke-blue-400" stroke-width="1.5" />
+                        <path d="M30 50 Q 45 60 60 50" class="stroke-blue-400" stroke-width="1.5" />
+                    </svg>
+                </div>
+                <span class="text-2xl font-black tracking-tighter uppercase italic transition-colors duration-300 text-white">
+                    Universal<span class="not-italic transition-colors duration-300 text-blue-400">Q</span>
+                </span>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden lg:flex items-center gap-10 font-bold text-[11px] header-nav">
+                <template x-for="[label, url] in Object.entries({
+                    'Inicio': '../index.html#inicio',
+                    'Nosotros': '../Quines Somos/index.html',
+                    'Productos': '../index.html#productos',
+                    'Contacto': '../contacto/index.html'
+                })">
+                    <a :href="url" 
+                       class="transition-colors uppercase tracking-[0.25em] drop-shadow-md font-bold" 
+                       :class="isScrolled ? 'text-slate-300 hover:text-blue-400' : 'text-white/90 hover:text-blue-400'"
+                       x-text="label"></a>
+                </template>
+                <div class="lang-switcher">
+                    <button @click="currentLang = 'es'" class="text-[11px] font-black tracking-tighter transition-colors" :class="currentLang === 'es' ? 'text-blue-400' : 'text-slate-500 hover:text-slate-300'">ES</button>
+                    <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                    <button @click="currentLang = 'en'" class="text-[11px] font-black tracking-tighter transition-colors" :class="currentLang === 'en' ? 'text-blue-400' : 'text-slate-500 hover:text-slate-300'">EN</button>
+                </div>
+                <a href="../contacto/index.html" class="text-white px-10 py-4 rounded-full transition-all uppercase tracking-widest font-black shadow-lg header-cta">
+                    Contacto Corporativo
+                </a>
+            </div>
+
+            <!-- Botón Móvil -->
+            <button class="lg:hidden transition-colors duration-300 text-white" @click="isMenuOpen = !isMenuOpen">
+                <i x-show="!isMenuOpen" data-lucide="menu"></i>
+                <i x-show="isMenuOpen" data-lucide="x"></i>
+            </button>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div x-show="isMenuOpen" x-transition class="lg:hidden bg-slate-900 border-b border-slate-700 p-6 space-y-4">
+            <template x-for="[label, url] in Object.entries({
+                'Inicio': '../index.html#inicio',
+                'Nosotros': '../Quines Somos/index.html',
+                'Productos': '../index.html#productos',
+                'Contacto': '../contacto/index.html'
+            })">
+                <a :href="url" class="block text-white font-bold uppercase tracking-widest text-sm" @click="isMenuOpen = false" x-text="label"></a>
+            </template>
+            <div class="flex items-center gap-4 pt-4 border-t border-slate-800">
+                <div class="flex bg-slate-950/50 rounded-lg p-1 border border-slate-800">
+                    <button @click="currentLang = 'es'" class="px-6 py-3 text-sm font-black rounded-md transition-all" :class="currentLang === 'es' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500'">ESPAÑOL</button>
+                    <button @click="currentLang = 'en'" class="px-6 py-3 text-sm font-black rounded-md transition-all" :class="currentLang === 'en' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500'">ENGLISH</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section Inmersiva -->
+    <header class="product-hero">
+        <div class="product-hero-bg"></div>
+        <div class="relative z-10 text-center max-w-5xl px-6 pt-16">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-300 text-[10px] font-black uppercase tracking-[0.25em] backdrop-blur-md mb-6 fade-up">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                División de Minería
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black italic text-white mb-6 drop-shadow-2xl fade-up" style="animation-delay: 100ms; line-height: 0.9;">
+                Lodo Rojo & <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-rose-600">Valorización</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-slate-200 max-w-3xl mx-auto leading-relaxed fade-up font-light" style="animation-delay: 200ms">
+                Transformamos el residuo de bauxita en un recurso valioso para la industria del cemento, la construcción y la recuperación de metales.
+            </p>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto px-6 pb-24 relative z-10">
+
+        <!-- Grid de Información -->
+        <section class="grid md:grid-cols-2 gap-16 items-center mb-32">
+            <div class="space-y-8 scroll-animate">
+                <h2 class="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tight">Economía Circular <br><span class="text-red-500">Aplicada</span></h2>
+                <p class="text-slate-400 leading-relaxed text-lg">
+                    El <strong class="text-white">Lodo Rojo</strong>, o residuo de bauxita, es un subproducto del proceso Bayer para producir alúmina. En <strong>UniversalQ</strong>, aplicamos tecnologías avanzadas para neutralizar y procesar este material, convirtiendo un pasivo ambiental en una materia prima secundaria.
+                </p>
+                <p class="text-slate-400 leading-relaxed text-lg">
+                    Nuestro enfoque no solo mitiga el impacto ecológico, sino que también crea nuevas cadenas de valor para la industria pesada, promoviendo un modelo de producción más sostenible.
+                </p>
+                
+                <div class="grid gap-4 pt-4">
+                    <div class="flex items-center gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                        <div class="bg-red-600/20 p-3 rounded-lg text-red-400"><i data-lucide="recycle"></i></div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm uppercase tracking-wider">Procesamiento Sostenible</h4>
+                            <p class="text-xs text-slate-500 font-medium">Neutralización y secado para un manejo seguro y eficiente.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                        <div class="bg-red-600/20 p-3 rounded-lg text-red-400"><i data-lucide="building-2"></i></div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm uppercase tracking-wider">Aplicaciones Industriales</h4>
+                            <p class="text-xs text-slate-500 font-medium">Aditivo para cemento, pigmentos y recuperación de metales.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imagen Decorativa / Visual -->
+            <div class="relative group scroll-animate">
+                <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-rose-600 rounded-2xl blur opacity-20 group-hover:opacity-50 transition duration-1000"></div>
+                <div class="relative rounded-2xl overflow-hidden border border-slate-700 bg-slate-900 aspect-[4/3] shadow-2xl">
+                    <img src="../photo_5023875185630710665_y.jpg" alt="Procesamiento de Lodo Rojo" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <div class="flex items-end justify-between border-b border-white/10 pb-4 mb-4">
+                            <div>
+                                <p class="text-red-400 text-[10px] font-black uppercase tracking-widest mb-1">Subproducto</p>
+                                <p class="text-white text-3xl font-black italic">Residuo Bauxita</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-red-400 text-[10px] font-black uppercase tracking-widest mb-1">Origen</p>
+                                <p class="text-white text-xl font-bold">Global</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-400 text-xs font-medium uppercase tracking-wider">Disponible para proyectos de construcción y metalurgia</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Especificaciones Técnicas (Cards) -->
+        <section class="mb-32">
+            <div class="text-center mb-16 scroll-animate">
+                <span class="text-red-500 font-black text-xs tracking-[0.3em] uppercase">Composición Típica</span>
+                <h3 class="text-4xl font-black text-white mt-3 italic">Componentes Principales</h3>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="spec-card p-8 rounded-2xl text-center scroll-animate">
+                    <div class="text-red-400 mb-5 flex justify-center"><i data-lucide="layers" class="w-10 h-10"></i></div>
+                    <div class="text-4xl font-black text-white italic tracking-tighter">~45%</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-3">Óxido de Hierro (Fe₂O₃)</div>
+                </div>
+                <div class="spec-card p-8 rounded-2xl text-center scroll-animate" style="transition-delay: 100ms">
+                    <div class="text-red-400 mb-5 flex justify-center"><i data-lucide="gem" class="w-10 h-10"></i></div>
+                    <div class="text-4xl font-black text-white italic tracking-tighter">~15%</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-3">Alúmina (Al₂O₃)</div>
+                </div>
+                <div class="spec-card p-8 rounded-2xl text-center scroll-animate" style="transition-delay: 200ms">
+                    <div class="text-red-400 mb-5 flex justify-center"><i data-lucide="mountain" class="w-10 h-10"></i></div>
+                    <div class="text-4xl font-black text-white italic tracking-tighter">~10%</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-3">Sílice (SiO₂)</div>
+                </div>
+                <div class="spec-card p-8 rounded-2xl text-center scroll-animate" style="transition-delay: 300ms">
+                    <div class="text-red-400 mb-5 flex justify-center"><i data-lucide="flask-conical" class="w-10 h-10"></i></div>
+                    <div class="text-4xl font-black text-white italic tracking-tighter">10-12</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-3">Nivel de pH</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA / Logística -->
+        <section class="rounded-3xl p-1 bg-gradient-to-br from-red-900/50 via-slate-900 to-slate-900 scroll-animate">
+            <div class="bg-slate-950 rounded-[22px] p-8 md:p-16 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-red-600 rounded-full blur-[100px] opacity-20"></div>
+                
+                <div class="relative z-10 flex flex-col md:flex-row gap-12 items-center justify-between">
+                    <div class="max-w-2xl">
+                        <h3 class="text-3xl font-bold text-white mb-4">Logística para Material a Granel</h3>
+                        <p class="text-slate-400 mb-8 text-lg">Coordinamos el transporte a granel (Break Bulk) y en contenedores especializados para el manejo seguro de materiales industriales.</p>
+                        <div class="flex gap-4">
+                             <div class="px-4 py-2 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-300 uppercase tracking-widest">Transporte a Granel</div>
+                             <div class="px-4 py-2 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-slate-300 uppercase tracking-widest">Contenedores</div>
+                        </div>
+                    </div>
+                    
+                    <a href="../contacto/index.html" class="group flex items-center justify-center gap-3 bg-red-600 hover:bg-red-500 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs transition-all shadow-xl hover:shadow-red-500/25">
+                        Solicitar Información 
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Unificado) -->
+    <footer class="bg-slate-950 text-slate-300 pt-20 pb-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 text-blue-400">
+                        <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current">
+                            <circle cx="45" cy="45" r="35" stroke-width="8" />
+                            <line x1="70" y1="70" x2="90" y2="90" stroke-width="10" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <span class="text-4xl font-black text-white italic tracking-tighter uppercase">Universal<span class="text-blue-400">Q</span></span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-10">
+                    <template x-for="link in ['Historia', 'Misión', 'Visión', 'Catálogo', 'Contacto']">
+                        <a href="#" class="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-blue-400 transition-colors" x-text="link"></a>
+                    </template>
+                </div>
+            </div>
+            
+            <div class="text-center pt-12 border-t border-slate-700">
+                <p class="text-slate-400 text-[10px] uppercase tracking-[0.5em] font-bold mb-4">
+                   Derechos reservados © 2026 Soluinc SAS 
+                </p>
+                <div class="flex justify-center gap-6 text-[9px] text-slate-400 font-black uppercase">
+                    <a href="#" class="hover:text-white">Términos</a>
+                    <a href="#" class="hover:text-white">Privacidad</a>
+                    <a href="#" class="hover:text-white">Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Chatbot Widget (Unificado) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+        <!-- El widget de WhatsApp se mantiene idéntico, 
+             el código HTML es el mismo que en las otras páginas -->
+        <div @click="toggleChat()" class="flex items-center gap-3 cursor-pointer group">
+            <div x-show="!isChatOpen" class="bg-white p-3 px-4 rounded-xl shadow-lg border border-slate-200">
+                <p class="text-xs font-bold text-slate-800">¿Necesitas una cotización?</p>
+                <p class="text-[10px] text-slate-500">Chatea con nosotros</p>
+            </div>
+            <div class="w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 z-50 relative animate-pulse-whatsapp">
+                <div class="relative w-8 h-8 flex items-center justify-center overflow-hidden">
+                   <svg class="absolute w-8 h-8 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
