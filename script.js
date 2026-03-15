@@ -135,9 +135,10 @@ function universalQ() {
                         this.chatQuote.topic = option.value;
                         this.chatStep = 1;
                         this.chatMessages.push({ from: 'bot', time: this.getCurrentTime(), text: `Entendido. Para cotizar ${this.chatQuote.topic}, ¿qué volumen aproximado necesitas?`, options: [
-                            { text: '< 1,000 MT', value: '< 1,000 MT' },
-                            { text: '1,000 - 5,000 MT', value: '1,000 - 5,000 MT' },
-                            { text: '> 5,000 MT', value: '> 5,000 MT' }
+                            { text: '1.000 - 10.000 MT', value: '1.000 - 10.000 MT' },
+                            { text: '10.001 - 25.000 MT', value: '10.001 - 25.000 MT' },
+                            { text: '25.001 - 50.000 MT', value: '25.001 - 50.000 MT' },
+                            { text: 'Más de 50.000 MT', value: 'Más de 50.000 MT' }
                         ]});
                         break;
                     case 1: // Quantity selected
