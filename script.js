@@ -109,8 +109,8 @@ function universalQ() {
                     this.isBotTyping = false;
                     this.chatMessages.push({ from: 'bot', time: this.getCurrentTime(), text: 'Soy tu asistente. ¿Sobre qué recurso estratégico deseas recibir información hoy?', options: [
                         { text: 'Azúcar ICUMSA 45', value: 'Azúcar ICUMSA 45' },
-                        { text: 'Minerales (Hierro/Litio)', value: 'Minerales y Metales' },
-                        { text: 'Energía y Logística', value: 'Logística y Energía' }
+                        { text: 'Combustibles', value: 'Combustibles' },
+                        { text: 'Lodo Rojo', value: 'Lodo Rojo' }
                     ]});
                 }, 1200);
             }, 500);
@@ -173,7 +173,7 @@ function universalQ() {
         },
 
         sendToWhatsapp() {
-            const phone = "1234567890"; // Reemplaza con tu número real
+            const phone = "34640636197";
             const text = encodeURIComponent(
                 `Hola UniversalQ, solicito una cotización con los siguientes detalles:\n` +
                 `Producto: ${this.chatQuote.topic}\n` +
