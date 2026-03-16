@@ -108,7 +108,7 @@ function universalQ() {
                 setTimeout(() => {
                     this.isBotTyping = false;
                     this.chatMessages.push({ from: 'bot', time: this.getCurrentTime(), text: 'Soy tu asistente. ¿Sobre qué recurso estratégico deseas recibir información hoy?', options: [
-                        { text: 'Cotizar Azúcar', value: 'Azúcar ICUMSA 45' },
+                        { text: 'Azúcar ICUMSA 45', value: 'Azúcar ICUMSA 45' },
                         { text: 'Minerales (Hierro/Litio)', value: 'Minerales y Metales' },
                         { text: 'Energía y Logística', value: 'Logística y Energía' }
                     ]});
