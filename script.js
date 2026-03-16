@@ -212,22 +212,25 @@ function universalQ() {
             }, 100);
         }
     };
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const missionCard = document.querySelector('.mission-card');
-        const visionCard = document.querySelector('.vision-card');
-        const objectiveCards = document.querySelectorAll('.objective-card');
-
-       // Add event listeners for hover effects
-        if (missionCard) {
-            missionCard.addEventListener('mouseenter', () => missionCard.classList.add('scale-105'));
-            missionCard.addEventListener('mouseleave', () => missionCard.classList.remove('scale-105'));
-        }
-        if (visionCard) {
-            visionCard.addEventListener('mouseenter', () => visionCard.classList.add('scale-105'));
-            visionCard.addEventListener('mouseleave', () => visionCard.classList.remove('scale-105'));
-        }
-        objectiveCards.forEach(card => {
-            card.addEventListener('mouseenter', () => card.classList.add('scale-105'));
-            card.addEventListener('mouseleave', () => card.classList.remove('scale-105'));        });    });
 }
+
+// Eventos globales fuera del componente Alpine
+document.addEventListener('DOMContentLoaded', function() {
+    const missionCard = document.querySelector('.mission-card');
+    const visionCard = document.querySelector('.vision-card');
+    const objectiveCards = document.querySelectorAll('.objective-card');
+
+    // Add event listeners for hover effects
+    if (missionCard) {
+        missionCard.addEventListener('mouseenter', () => missionCard.classList.add('scale-105'));
+        missionCard.addEventListener('mouseleave', () => missionCard.classList.remove('scale-105'));
+    }
+    if (visionCard) {
+        visionCard.addEventListener('mouseenter', () => visionCard.classList.add('scale-105'));
+        visionCard.addEventListener('mouseleave', () => visionCard.classList.remove('scale-105'));
+    }
+    objectiveCards.forEach(card => {
+        card.addEventListener('mouseenter', () => card.classList.add('scale-105'));
+        card.addEventListener('mouseleave', () => card.classList.remove('scale-105'));
+    });
+});
